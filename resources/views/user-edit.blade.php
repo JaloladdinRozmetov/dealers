@@ -85,7 +85,7 @@
 
                             <div class="mb-3">
                                 <label for="dealer_name" class="form-label">Dealer Name</label>
-                                <input type="text" name="dealer_name" class="form-control @error('dealer_name') is-invalid @enderror" id="dealer_name" placeholder="Dealer's name" value="{{ old('dealer_name', $user->dealer->dealer_name ?? '') }}">
+                                <input type="text" name="dealer_name" class="form-control @error('dealer_name') is-invalid @enderror" id="dealer_name" placeholder="Dealer's name" value="{{ old('dealer_name', $user->dealer->name ?? '') }}">
                                 @error('dealer_name')
                                 <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror

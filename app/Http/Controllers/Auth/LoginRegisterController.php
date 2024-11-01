@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\Counter;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -33,7 +34,7 @@ class LoginRegisterController extends Controller
     /**
      * Store a new user.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -54,7 +55,7 @@ class LoginRegisterController extends Controller
         Auth::attempt($credentials);
         $request->session()->regenerate();
         return redirect()->route('dashboard')
-        ->withSuccess('You have successfully registered & logged in!');
+            ->withSuccess('You have successfully registered & logged in!');
     }
 
     /**
@@ -70,7 +71,7 @@ class LoginRegisterController extends Controller
     /**
      * Authenticate the user.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function authenticate(Request $request)
@@ -80,19 +81,23 @@ class LoginRegisterController extends Controller
             'password' => 'required'
         ]);
 
-        if(Auth::attempt($credentials))
-        {
+        if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->route('dashboard')
-                ->withSuccess('You have successfully logged in!');
+            if (\auth()->user()->role == 'admin') {
+                return redirect()->route('counters');
+            } elseif (\auth()->user()->role == 'dealer') {
+                return redirect()->route('search');
+            }
         }
 
         return back()->withErrors([
             'email' => 'Your provided credentials do not match in our records.',
         ])->onlyInput('email');
 
-    } 
-    
+    }
+
+
+
     /**
      * Display a dashboard to authenticated users.
      *
@@ -100,21 +105,20 @@ class LoginRegisterController extends Controller
      */
     public function dashboard()
     {
-        if(Auth::check())
-        {
+        if (Auth::check()) {
             return view('auth.dashboard');
         }
-        
+
         return redirect()->route('login')
             ->withErrors([
-            'email' => 'Please login to access the dashboard.',
-        ])->onlyInput('email');
-    } 
-    
+                'email' => 'Please login to access the dashboard.',
+            ])->onlyInput('email');
+    }
+
     /**
      * Log out the user from application.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function logout(Request $request)
@@ -124,6 +128,6 @@ class LoginRegisterController extends Controller
         $request->session()->regenerateToken();
         return redirect()->route('login')
             ->withSuccess('You have logged out successfully!');;
-    }    
+    }
 
 }

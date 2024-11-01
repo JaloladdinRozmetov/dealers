@@ -123,43 +123,31 @@ class UserController extends Controller
         $user->role = $validatedData['role'];
 
 
+
         // If a new password is provided, hash it and save
         if ($request->filled('password')) {
-            $user->password = Hash::make($validatedData['password']);
+            $user->password = Hash::make($request['password']);
         }
 
         // Handle dealer-specific data when the role is 'dealer'
-        if ($user->role === 'dealer') {
-            $user->INN = $validatedData['INN'];
-            $user->director_name = $validatedData['director_name'];
-            $user->ofice_adres = $validatedData['ofice_adres'];
-            $user->store_adres = $validatedData['store_adres'];
-            $user->phone_number = $validatedData['phone_number'];
-
-            // Create or update dealer-specific details (assuming a Dealer model exists)
+        if ($validatedData['role'] === 'dealer') {
             Dealer::query()->updateOrCreate(
                 ['user_id' => $user->id], // Match based on user_id
                 [
-                    'INN' => $user->INN,
-                    'director_name' => $user->director_name,
-                    'dealer_name' => $user->director_name,
-                    'ofice_adres' => $user->ofice_adres,
-                    'store_adres' => $user->store_adres,
-                    'phone_number' => $user->phone_number,
+                    'INN' =>  $validatedData['INN'],
+                    'director_name' => $validatedData['director_name'],
+                    'dealer_name' => $validatedData['dealer_name'],
+                    'ofice_adres' => $validatedData['ofice_adres'],
+                    'store_adres' => $validatedData['store_adres'],
+                    'phone_number' => $validatedData['phone_number'],
                 ]
             );
-        } else {
-            // Clear dealer fields if the role is not 'dealer'
-            $user->INN = null;
-            $user->director_name = null;
-            $user->ofice_adres = null;
-            $user->store_adres = null;
-            $user->phone_number = null;
-            $user->save();
-
+            $user->role = $validatedData['role'];
+        }elseif ($validatedData['role'] === 'admin') {
+            $user->role = 'admin';
         }
+        $user->save();
 
-        // Save the updated user
 
         return redirect()->route('users')->with('success', 'User updated successfully.');
     }

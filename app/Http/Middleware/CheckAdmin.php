@@ -24,6 +24,6 @@ class CheckAdmin
         }
 
         // If the user is not an admin, redirect or return an error
-        return redirect('/home')->with('error', 'You do not have admin access.');
+        return redirect('search')->with('error', 'You do not have admin access.');
     }
 }

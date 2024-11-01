@@ -23,9 +23,19 @@ class Dealer extends Model
         'user_id', // This is the foreign key
     ];
 
-    // Define the relationship to the User model
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function counters()
+    {
+        return $this->hasMany(Counter::class);
     }
 }
