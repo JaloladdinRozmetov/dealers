@@ -17,16 +17,26 @@ class CounterController extends Controller
 
         $query = Counter::query();
 
+        // Apply search filter if present
         if ($request->filled('search')) {
-            $query->where('serial_number', 'like', '%' . $request->search.'%')
-            ->orWhere('phone_number', 'like', '%' . $request->search.'%')
-            ->orWhere('imei','like','%'.$request->search.'%');
-        }else{
-            $counters = $query->paginate(30);
-            return view('counters.index',compact('counters'));
+            $query->where(function ($q) use ($request) {
+                $q->where('serial_number', 'like', '%' . $request->search . '%')
+                    ->orWhere('caliber', 'like', '%' . $request->search . '%')
+                    ->orWhere('imei', 'like', '%' . $request->search . '%')
+                    ->orWhere('iccid', 'like', '%' . $request->search . '%')
+                    ->orWhere('phone_number', 'like', '%' . $request->search . '%');
+            });
         }
 
-        $counters = $query->paginate(1);
+        // Apply filter based on status, default to "sold"
+        if ($request->status === 'notSold') {
+            $query->whereNull('dealer_id')->whereNull('customer_id');
+        } else {
+            $query->whereHas('dealer'); // Default to "sold" if no status specified
+        }
+
+        // Paginate results
+        $counters = $query->paginate(10);
 
         return view('counters.index', compact('counters'));
     }
@@ -46,7 +56,11 @@ class CounterController extends Controller
 
         $counter = $query->first();
 
-        return view('search', compact('counter'));
+        if ($counter){
+            return view('search', compact('counter'));
+        }else{
+            return redirect()->route('search')->withErrors(['error'=>'Bu seria raqami topilmadi!']);
+        }
     }
     /**
      * Show the form for creating a new counter.
@@ -63,7 +77,7 @@ class CounterController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'serial_number' => 'required|integer|max:99999999999999',
+            'serial_number' => 'required|unique:counters|integer|max:99999999999999',
             'caliber' => 'required|string|max:255',
             'imei' => 'required|integer|max:999999999999999',
             'iccid' => 'required|integer|max:9999999999999999999',
@@ -129,7 +143,7 @@ class CounterController extends Controller
             'organization_name' => 'string|nullable',
             'director_name' => 'string|nullable',
             'counter_address' => 'string|nullable',
-            'phone_number' => 'string|nullable',
+            'phone_number' => 'string|nullable|max:9',
         ]);
 
         $customer = Customer::query()->firstOrCreate(['organization_INN' => $request->organization_INN],

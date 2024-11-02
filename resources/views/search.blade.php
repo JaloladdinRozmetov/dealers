@@ -5,16 +5,19 @@
         <div class="col-md-12">
             <div class="card">
                 @if (session('success'))
-                    <div class="alert alert-success" role="alert">
+                    <div class="p-3 mb-3 text-white bg-success">
                         {{ session('success') }}
                     </div>
                 @endif
 
-                @if (session('error'))
-                    <div class="alert alert-danger" role="alert">
-                        {{ session('error') }}
+                <!-- Display Error Message -->
+                @if ($errors->has('error'))
+                    <div class="p-3 mb-3 text-white bg-danger">
+                        {{ $errors->first('error') }}
                     </div>
                 @endif
+
+
 
                 <!-- Search Form -->
                 <form method="GET" action="{{ route('search') }}" class="mb-3 d-flex">
@@ -75,28 +78,47 @@
                         <div class="modal-body">
                             <div class="mb-3">
                                 <label for="organization_name" class="form-label">Organization Name</label>
-                                <input type="text" name="organization_name" id="organization_name" class="form-control">
+                                <input type="text" name="organization_name" id="organization_name" class="form-control" value="{{ old('organization_name') }}">
+                                @error('organization_name')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
+
                             <div class="mb-3">
                                 <label for="organization_INN" class="form-label">Organization INN</label>
-                                <input type="text" name="organization_INN" id="organization_INN" class="form-control" required>
+                                <input type="text" name="organization_INN" id="organization_INN" class="form-control" value="{{ old('organization_INN') }}" required>
+                                @error('organization_INN')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
+
                             <div class="mb-3">
                                 <label for="director_name" class="form-label">Director Name</label>
-                                <input type="text" name="director_name" id="director_name" class="form-control">
+                                <input type="text" name="director_name" id="director_name" class="form-control" value="{{ old('director_name') }}">
+                                @error('director_name')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
+
                             <div class="mb-3">
                                 <label for="counter_address" class="form-label">Counter Address</label>
-                                <input type="text" name="counter_address" id="counter_address" class="form-control">
+                                <input type="text" name="counter_address" id="counter_address" class="form-control" value="{{ old('counter_address') }}">
+                                @error('counter_address')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
+
                             <div class="mb-3">
                                 <label for="phone_number" class="form-label">Phone Number</label>
-                                <input type="text" name="phone_number" id="phone_number" class="form-control">
+                                <input type="text" name="phone_number" id="phone_number" class="form-control" value="{{ old('phone_number') }}">
+                                @error('phone_number')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
-                            <div class="mb-3" hidden="hidden">
-                                <input type="text" name="counter_id" id="counter_id" class="form-control" value="{{$counter->id}}">
-                            </div>
+
+                            <input type="hidden" name="counter_id" id="counter_id" class="form-control" value="{{ $counter->id }}">
                         </div>
+
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-primary">Save Customer</button>
@@ -107,3 +129,13 @@
         </div>
     @endif
 @endsection
+
+@if ($errors->any())
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var addCustomerModal = new bootstrap.Modal(document.getElementById('addCustomerModal'));
+            addCustomerModal.show();
+        });
+    </script>
+@endif
+

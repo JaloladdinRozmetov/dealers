@@ -19,8 +19,16 @@
 
                 <form method="GET" action="{{ route('counters') }}" class="mb-3 d-flex">
                     <input type="text" name="search" id="search" class="form-control me-2" placeholder="Search..." value="{{ request('search') }}">
+
+                    <select name="status" id="status" class="form-select me-2">
+                        <option value="sold" {{ request('status') === 'sold' || !request()->has('status') ? 'selected' : '' }}>Sold</option>
+                        <option value="notSold" {{ request('status') === 'notSold' ? 'selected' : '' }}>Not Sold</option>
+                    </select>
+
                     <button type="submit" class="btn btn-primary">Search</button>
                 </form>
+
+
 
                 <div class="table-responsive">
                     <table class="table">
