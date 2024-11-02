@@ -34,6 +34,7 @@ Route::middleware(['auth','admin'])->prefix('users')->group(function () {
     Route::get('/create', [UserController::class, 'create'])->name('users.create');
     Route::post('/', [UserController::class, 'store'])->name('users.store');
     Route::get('/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
+    Route::get('/{user}/show', [UserController::class, 'show'])->name('users.show');
     Route::put('/{user}', [UserController::class, 'update'])->name('users.update');
     Route::delete('/{user}', [UserController::class, 'destroy'])->name('users.destroy');
 });
@@ -46,6 +47,7 @@ Route::middleware(['auth','admin'])->prefix('counters')->group(function () {
     Route::get('/create', [CounterController::class, 'create'])->middleware('admin')->name('counters.create');
     Route::post('/', [CounterController::class, 'store'])->middleware('admin')->name('counters.store');
     Route::get('/{counter}/edit', [CounterController::class, 'edit'])->middleware('admin')->name('counters.edit');
+    Route::get('/{counter}/show', [CounterController::class, 'show'])->middleware('admin')->name('counters.show');
     Route::put('/{counter}', [CounterController::class, 'update'])->middleware('admin')->name('counters.update');
     Route::delete('/{counter}', [CounterController::class, 'destroy'])->middleware('admin')->name('counters.destroy');
 });

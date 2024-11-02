@@ -93,8 +93,10 @@ class CounterController extends Controller
     /**
      * Display the specified counter.
      */
-    public function show(Counter $counter)
+    public function show($id)
     {
+        $counter = Counter::query()->with('customer', 'dealer')->findOrFail($id);
+
         return view('counters.show', compact('counter'));
     }
 

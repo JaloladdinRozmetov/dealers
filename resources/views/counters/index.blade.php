@@ -67,6 +67,7 @@
                                             <a class="btn btn-primary ms-2" href="{{ route('counters.edit', $counter->id) }}">
                                                 <i class="bi bi-pencil-fill"></i>
                                             </a>
+                                            <a class="btn btn-success ms-2" href="{{route('counters.show',$counter->id)}}"><i class="bi bi-eye"></i></a>
                                         @endif
                                     </div>
                                 </td>

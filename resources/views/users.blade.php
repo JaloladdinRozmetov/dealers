@@ -49,7 +49,8 @@
 
                                         <button class="btn btn-danger"><i class="bi bi-trash"></i></button>
                                     </form>
-                                    <a class="btn btn-primary" href="{{route('users.edit',$user->id)}}"><i class="bi bi-pencil-fill"></i></a>
+                                    <a class="btn btn-primary ms-2" href="{{route('users.edit',$user->id)}}"><i class="bi bi-pencil-fill"></i></a>
+                                    <a class="btn btn-success ms-2" href="{{route('users.show',$user->id)}}"><i class="bi bi-eye"></i></a>
                                 </div>
 
                             </td>
