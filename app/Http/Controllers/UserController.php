@@ -96,7 +96,9 @@ class UserController extends Controller
         // Find the user by ID, including the related dealer and its counters
         $user = User::with('dealer.counters')->findOrFail($id);
 
-        return view('user-show', compact('user'));
+        $counterCount = $user->dealer->counters->count();
+
+        return view('user-show', compact('user','counterCount'));
     }
 
     public function update(Request $request, $id)

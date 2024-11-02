@@ -66,7 +66,7 @@
 
                         <!-- Counters Table -->
                         @if($user->dealer->counters->isNotEmpty())
-                            <h5>Counters</h5>
+                            <h5>Counters  ({{$counterCount}})</h5>
                             <table class="table">
                                 <thead>
                                 <tr>
