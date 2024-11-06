@@ -10,22 +10,17 @@
                     </div>
                 @endif
 
-                <!-- Display Error Message -->
                 @if ($errors->has('error'))
                     <div class="p-3 mb-3 text-white bg-danger">
                         {{ $errors->first('error') }}
                     </div>
                 @endif
 
-
-
                 <!-- Search Form -->
                 <form method="GET" action="{{ route('search') }}" class="mb-3 d-flex">
                     <input type="text" name="search" id="search" class="form-control me-2" placeholder="Seriya raqam..." value="{{ request('search') }}">
                     <button type="submit" class="btn btn-primary">Qidirish</button>
                 </form>
-
-                <!-- Add Customer Button (shown only if there are counters) -->
 
                     <div class="table-responsive">
                         <table class="table">
@@ -97,7 +92,7 @@
                     <form method="POST" action="{{ route('sold.counter') }}">
                         @csrf
                         <div class="modal-header">
-                            <h5 class="modal-title" id="addCustomerModalLabel">Add Customer</h5>
+                            <h5 class="modal-title" id="addCustomerModalLabel">Mijoz qo'shish</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
@@ -134,7 +129,7 @@
                             </div>
 
                             <div class="mb-3">
-                                <label for="phone_number" class="form-label">Telefon raqam</label>
+                                <label for="phone_number" class="form-label">Mijoz telefon raqami</label>
                                 <input type="text" name="phone_number" id="phone_number" placeholder="913334567" class="form-control" value="{{ old('phone_number') }}">
                                 @error('phone_number')
                                 <div class="text-danger">{{ $message }}</div>

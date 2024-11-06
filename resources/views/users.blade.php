@@ -15,49 +15,51 @@
                     </div>
                 @endif
 
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Ism</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Tashkilot</th>
-                        <th scope="col">Direktor Ismi</th>
-                        <th scope="col">INN</th>
-                        <th scope="col">Yuridik M</th>
-                        <th scope="col">Do'kon M</th>
-                        <th scope="col">Tel</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($users as $user)
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
                         <tr>
-                            <th scope="row">{{$user->id}}</th>
-                            <td>{{$user->name}}</td>
-                            <td>{{$user->email}}</td>
-                            <td>{{ $user->dealer ? $user->dealer->name : 'N/A' }}</td>
-                            <td>{{ $user->dealer ? $user->dealer->director_name : 'N/A' }}</td>
-                            <td>{{ $user->dealer ? $user->dealer->INN : 'N/A' }}</td>
-                            <td>{{ $user->dealer ? $user->dealer->ofice_adres : 'N/A' }}</td>
-                            <td>{{ $user->dealer ? $user->dealer->store_adres : 'N/A' }}</td>
-                            <td>{{ $user->dealer ? $user->dealer->phone_number : 'N/A' }}</td>
-                            <td>
-                                <div class="d-flex">
-                                    <form action="{{route('users.destroy',$user->id)}}" method="post">
-                                        @csrf
-                                        @method('DELETE')
-
-                                        <button class="btn btn-danger"><i class="bi bi-trash"></i></button>
-                                    </form>
-                                    <a class="btn btn-primary ms-2" href="{{route('users.edit',$user->id)}}"><i class="bi bi-pencil-fill"></i></a>
-                                    <a class="btn btn-success ms-2" href="{{route('users.show',$user->id)}}"><i class="bi bi-eye"></i></a>
-                                </div>
-
-                            </td>
+                            <th scope="col">ID</th>
+                            <th scope="col">Ism</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Tashkilot</th>
+                            <th scope="col">Direktor Ismi</th>
+                            <th scope="col">INN</th>
+                            <th scope="col">Yuridik M</th>
+                            <th scope="col">Do'kon M</th>
+                            <th scope="col">Tel</th>
                         </tr>
-                    @endforeach
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                        @foreach($users as $user)
+                            <tr>
+                                <th scope="row">{{$user->id}}</th>
+                                <td>{{$user->name}}</td>
+                                <td>{{$user->email}}</td>
+                                <td>{{ $user->dealer ? $user->dealer->name : 'N/A' }}</td>
+                                <td>{{ $user->dealer ? $user->dealer->director_name : 'N/A' }}</td>
+                                <td>{{ $user->dealer ? $user->dealer->INN : 'N/A' }}</td>
+                                <td>{{ $user->dealer ? $user->dealer->ofice_adres : 'N/A' }}</td>
+                                <td>{{ $user->dealer ? $user->dealer->store_adres : 'N/A' }}</td>
+                                <td>{{ $user->dealer ? $user->dealer->phone_number : 'N/A' }}</td>
+                                <td>
+                                    <div class="d-flex">
+                                        <form action="{{route('users.destroy',$user->id)}}" method="post">
+                                            @csrf
+                                            @method('DELETE')
+
+                                            <button class="btn btn-danger"><i class="bi bi-trash"></i></button>
+                                        </form>
+                                        <a class="btn btn-primary ms-2" href="{{route('users.edit',$user->id)}}"><i class="bi bi-pencil-fill"></i></a>
+                                        <a class="btn btn-success ms-2" href="{{route('users.show',$user->id)}}"><i class="bi bi-eye"></i></a>
+                                    </div>
+
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

@@ -78,9 +78,10 @@
                 </div>
             </div>
         </div>
-        <div class="d-felx justify-content-center">
-            {{ $counters->links() }}
+        <div class="d-flex justify-content-center">
+            {{ $counters->appends(request()->except('page'))->links() }}
         </div>
+
     </div>
 
 @endsection
