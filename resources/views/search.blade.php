@@ -21,8 +21,8 @@
 
                 <!-- Search Form -->
                 <form method="GET" action="{{ route('search') }}" class="mb-3 d-flex">
-                    <input type="text" name="search" id="search" class="form-control me-2" placeholder="Search..." value="{{ request('search') }}">
-                    <button type="submit" class="btn btn-primary">Search</button>
+                    <input type="text" name="search" id="search" class="form-control me-2" placeholder="Seriya raqam..." value="{{ request('search') }}">
+                    <button type="submit" class="btn btn-primary">Qidirish</button>
                 </form>
 
                 <!-- Add Customer Button (shown only if there are counters) -->
@@ -32,13 +32,13 @@
                         <thead>
                         <tr>
                             <th scope="col">ID</th>
-                            <th scope="col">Serial Number</th>
-                            <th scope="col">Caliber</th>
+                            <th scope="col">Seriya raqam</th>
+                            <th scope="col">Kalibiri</th>
                             <th scope="col">IMEI</th>
                             <th scope="col">ICCID</th>
-                            <th scope="col">Phone Number</th>
-                            <th scope="col">Dealer</th>
-                            <th scope="col">Actions</th>
+                            <th scope="col">Tel raqam</th>
+                            <th scope="col">Diller</th>
+                            <th scope="col">Amallar</th>
                         </tr>
                         </thead>
                         <tbody id="counterTableBody">
@@ -58,7 +58,7 @@
                 </div>
                 @if($counter)
                     <button type="button" class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#addCustomerModal">
-                        Add Customer
+                        Mijoz kiritish
                     </button>
                 @endif
             </div>
@@ -77,7 +77,7 @@
                         </div>
                         <div class="modal-body">
                             <div class="mb-3">
-                                <label for="organization_name" class="form-label">Organization Name</label>
+                                <label for="organization_name" class="form-label">Tashkilot nomi</label>
                                 <input type="text" name="organization_name" id="organization_name" class="form-control" value="{{ old('organization_name') }}">
                                 @error('organization_name')
                                 <div class="text-danger">{{ $message }}</div>
@@ -85,7 +85,7 @@
                             </div>
 
                             <div class="mb-3">
-                                <label for="organization_INN" class="form-label">Organization INN</label>
+                                <label for="organization_INN" class="form-label">Tashkilot INN</label>
                                 <input type="text" name="organization_INN" id="organization_INN" class="form-control" value="{{ old('organization_INN') }}" required>
                                 @error('organization_INN')
                                 <div class="text-danger">{{ $message }}</div>
@@ -93,7 +93,7 @@
                             </div>
 
                             <div class="mb-3">
-                                <label for="director_name" class="form-label">Director Name</label>
+                                <label for="director_name" class="form-label">Direktor ismi</label>
                                 <input type="text" name="director_name" id="director_name" class="form-control" value="{{ old('director_name') }}">
                                 @error('director_name')
                                 <div class="text-danger">{{ $message }}</div>
@@ -101,7 +101,7 @@
                             </div>
 
                             <div class="mb-3">
-                                <label for="counter_address" class="form-label">Counter Address</label>
+                                <label for="counter_address" class="form-label">Hisoblagich manzili</label>
                                 <input type="text" name="counter_address" id="counter_address" class="form-control" value="{{ old('counter_address') }}">
                                 @error('counter_address')
                                 <div class="text-danger">{{ $message }}</div>
@@ -109,7 +109,7 @@
                             </div>
 
                             <div class="mb-3">
-                                <label for="phone_number" class="form-label">Phone Number</label>
+                                <label for="phone_number" class="form-label">Telefon raqam</label>
                                 <input type="text" name="phone_number" id="phone_number" class="form-control" value="{{ old('phone_number') }}">
                                 @error('phone_number')
                                 <div class="text-danger">{{ $message }}</div>
@@ -120,8 +120,8 @@
                         </div>
 
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save Customer</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Yopish</button>
+                            <button type="submit" class="btn btn-primary">Saqlash</button>
                         </div>
                     </form>
                 </div>

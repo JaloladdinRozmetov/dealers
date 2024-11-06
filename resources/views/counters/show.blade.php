@@ -6,25 +6,24 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header d-flex">
-                    <h4>Counter Details</h4>
-                    <a class="btn btn-primary ms-auto" href="{{ route('counters') }}">Back to Counters</a>
+                    <h4>Hisoblagich ma'lumotlari</h4>
+                    <a class="btn btn-primary ms-auto" href="{{ route('counters') }}">Hisoblagichlar</a>
                 </div>
                 <div class="card-body">
 
                     <!-- Counter Information Table -->
-                    <h5>Counter Information</h5>
                     <table class="table mb-4">
                         <tbody>
                         <tr>
-                            <th>Counter ID</th>
+                            <th>Hisoblagich ID</th>
                             <td>{{ $counter->id }}</td>
                         </tr>
                         <tr>
-                            <th>Serial number</th>
+                            <th>Seriya raqami</th>
                             <td>{{ $counter->serial_number }}</td>
                         </tr>
                         <tr>
-                            <th>Caliber</th>
+                            <th>Kalibiri</th>
                             <td>{{ $counter->caliber }}</td>
                         </tr>
                         <tr>
@@ -36,11 +35,11 @@
                             <td>{{ $counter->iccid }}</td>
                         </tr>
                         <tr>
-                            <th>Phone number</th>
+                            <th>Tel raqam</th>
                             <td>{{ $counter->phone_number }}</td>
                         </tr>
                         <tr>
-                            <th>Created At</th>
+                            <th>Yaratilgan sana</th>
                             <td>{{ $counter->created_at }}</td>
                         </tr>
                         </tbody>
@@ -48,19 +47,19 @@
 
                     <!-- Dealer Information Table -->
                     @if($counter->dealer)
-                        <h5>Dealer Information</h5>
+                        <h5>Diller ma'lumoti</h5>
                         <table class="table mb-4">
                             <tbody>
                             <tr>
-                                <th>Dealer ID</th>
+                                <th>Diller ID</th>
                                 <td>{{ $counter->dealer->id }}</td>
                             </tr>
                             <tr>
-                                <th>Name</th>
+                                <th>Tashkilot nomi</th>
                                 <td>{{ $counter->dealer->name }}</td>
                             </tr>
                             <tr>
-                                <th>Director's Name</th>
+                                <th>Direktor nomi</th>
                                 <td>{{ $counter->dealer->director_name }}</td>
                             </tr>
                             <tr>
@@ -68,34 +67,34 @@
                                 <td>{{ $counter->dealer->INN }}</td>
                             </tr>
                             <tr>
-                                <th>Office Address</th>
+                                <th>Ofis manzili</th>
                                 <td>{{ $counter->dealer->ofice_adres }}</td>
                             </tr>
                             <tr>
-                                <th>Store Address</th>
+                                <th>Do'kon manzili</th>
                                 <td>{{ $counter->dealer->store_adres }}</td>
                             </tr>
                             <tr>
-                                <th>Phone Number</th>
+                                <th>Tel raqam</th>
                                 <td>{{ $counter->dealer->phone_number }}</td>
                             </tr>
                             </tbody>
                         </table>
                     @else
-                        <p>No dealer associated with this counter.</p>
+                        <p>Bu hisoblagichda hali diller ma'lumotlari mavjud emas.</p>
                     @endif
 
                     <!-- Customer Information Table -->
                     @if($counter->customer)
-                        <h5>Customer Information</h5>
+                        <h5>Mijoz ma'lumotlari</h5>
                         <table class="table">
                             <tbody>
                             <tr>
-                                <th>Customer ID</th>
+                                <th>Mijoz ID</th>
                                 <td>{{ $counter->customer->id }}</td>
                             </tr>
                             <tr>
-                                <th>Organization name</th>
+                                <th>Tashkilot nomi</th>
                                 <td>{{ $counter->customer->organization_name }}</td>
                             </tr>
                             <tr>
@@ -103,24 +102,24 @@
                                 <td>{{ $counter->customer->organization_INN }}</td>
                             </tr>
                             <tr>
-                                <th>Director name</th>
+                                <th>Direktor nomi</th>
                                 <td>{{ $counter->customer->director_name }}</td>
                             </tr>
                             <tr>
-                                <th>Counter Address</th>
+                                <th>Hisoblagich manzili</th>
                                 <td>{{ $counter->customer->counter_address }}</td>
                             </tr>
                             <tr>
-                                <th>Phone number</th>
+                                <th>Tel raqam</th>
                                 <td>{{ $counter->customer->phone_number }}</td>
                             </tr>
                             </tbody>
                         </table>
                     @else
-                        <p>No customer associated with this counter.</p>
+                        <p>Hisoblagichga hali mijoz biriktirilmagan.</p>
                     @endif
 
-                    <a href="{{ route('counters.edit', $counter->id) }}" class="btn btn-primary mt-3">Edit Counter</a>
+                    <a href="{{ route('counters.edit', $counter->id) }}" class="btn btn-primary mt-3">O'zgartirish</a>
                 </div>
             </div>
         </div>

@@ -59,7 +59,7 @@ class CounterController extends Controller
         if ($counter){
             return view('search', compact('counter'));
         }else{
-            return redirect()->route('search')->withErrors(['error'=>'Bu seria raqami topilmadi!']);
+            return redirect()->route('search')->withErrors(['error'=>'Bu seriya raqamidagi hisoblagich topilmadi!']);
         }
     }
     /**

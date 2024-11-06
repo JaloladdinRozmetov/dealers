@@ -5,9 +5,9 @@
     <div class="row justify-content-center mt-5">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header d-flex">Counters
+                <div class="card-header d-flex">Hisoblagichlar
                     @if(auth()->user()->role == 'admin')
-                        <a class="btn btn-success ms-auto" href="{{ route('counters.create') }}">Create</a>
+                        <a class="btn btn-success ms-auto" href="{{ route('counters.create') }}">Yaratish</a>
                     @endif
                 </div>
 
@@ -18,14 +18,14 @@
                 @endif
 
                 <form method="GET" action="{{ route('counters') }}" class="mb-3 d-flex">
-                    <input type="text" name="search" id="search" class="form-control me-2" placeholder="Search..." value="{{ request('search') }}">
+                    <input type="text" name="search" id="search" class="form-control me-2" placeholder="Qidirish..." value="{{ request('search') }}">
 
                     <select name="status" id="status" class="form-select me-2">
-                        <option value="sold" {{ request('status') === 'sold' || !request()->has('status') ? 'selected' : '' }}>Sold</option>
-                        <option value="notSold" {{ request('status') === 'notSold' ? 'selected' : '' }}>Not Sold</option>
+                        <option value="sold" {{ request('status') === 'sold' || !request()->has('status') ? 'selected' : '' }}>Sotilgan</option>
+                        <option value="notSold" {{ request('status') === 'notSold' ? 'selected' : '' }}>Sotilmagan</option>
                     </select>
 
-                    <button type="submit" class="btn btn-primary">Search</button>
+                    <button type="submit" class="btn btn-primary">Qidiruv</button>
                 </form>
 
 
@@ -35,13 +35,13 @@
                         <thead>
                         <tr>
                             <th scope="col">ID</th>
-                            <th scope="col">Serial Number</th>
-                            <th scope="col">Caliber</th>
+                            <th scope="col">Seriya raqam</th>
+                            <th scope="col">Kalibiri</th>
                             <th scope="col">IMEI</th>
                             <th scope="col">ICCID</th>
-                            <th scope="col">Phone Number</th>
-                            <th scope="col">Dealer</th>
-                            <th scope="col">Actions</th>
+                            <th scope="col">Tel raqam</th>
+                            <th scope="col">Diller</th>
+                            <th scope="col">Amallar</th>
                         </tr>
                         </thead>
                         <tbody id="counterTableBody">

@@ -4,7 +4,7 @@
     <div class="row justify-content-center mt-5">
         <div class="col-md-10">
             <div class="card">
-                <div class="card-header">Edit Counter</div>
+                <div class="card-header">Hisoblagichni o'zgartirish</div>
                 <div class="card-body">
                     @if (session('error'))
                         <div class="alert alert-error" role="alert">
@@ -16,7 +16,7 @@
                         @method('PUT')
 
                         <div class="mb-3">
-                            <label for="serial_number" class="form-label">Serial Number</label>
+                            <label for="serial_number" class="form-label">Seriya raqam</label>
                             <input type="number" name="serial_number" class="form-control @error('serial_number') is-invalid @enderror" id="serial_number" value="{{ old('serial_number', $counter->serial_number) }}" required>
                             @error('serial_number')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -24,7 +24,7 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="caliber" class="form-label">Caliber</label>
+                            <label for="caliber" class="form-label">Kalibiri</label>
                             <input type="text" name="caliber" class="form-control @error('caliber') is-invalid @enderror" id="caliber" value="{{ old('caliber', $counter->caliber) }}" required>
                             @error('caliber')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -48,7 +48,7 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="phone_number" class="form-label">Phone Number</label>
+                            <label for="phone_number" class="form-label">Telefon raqam</label>
                             <input type="number" name="phone_number" class="form-control @error('phone_number') is-invalid @enderror" id="phone_number" value="{{ old('phone_number', $counter->phone_number) }}">
                             @error('phone_number')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -56,20 +56,20 @@
                         </div>
                         <!-- Dealer Information -->
                         <div class="mt-4">
-                            <h5>Dealer Information</h5>
+                            <h5>Diller ma'lumoti</h5>
                         </div>
 
                         <div class="mb-3">
-                            <label for="dealer_name" class="form-label">Dealer Name</label>
+                            <label for="dealer_name" class="form-label">Tashkilot nomi</label>
                             <input type="text" name="dealer_name" class="form-control" id="dealer_name" value="{{ $counter->dealer ? $counter->dealer->name : 'No dealer assigned' }}" readonly>
                         </div>
 
                         <div class="mb-3">
-                            <label for="director_name" class="form-label">Director Name</label>
+                            <label for="director_name" class="form-label">Direktor ismi</label>
                             <input type="text" name="director_name" class="form-control" id="director_name" value="{{ $counter->dealer ? $counter->dealer->director_name : 'No director assigned' }}" readonly>
                         </div>
 
-                        <button type="submit" class="btn btn-primary">Update Counter</button>
+                        <button type="submit" class="btn btn-primary">O'zgartirish</button>
                     </form>
                 </div>
             </div>

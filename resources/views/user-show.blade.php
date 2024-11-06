@@ -6,19 +6,19 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header d-flex">
-                    <h4>User and Dealer Details</h4>
-                    <a class="btn btn-primary ms-auto" href="{{ route('users') }}">Back to Users</a>
+                    <h4>Foydalanuvchi va Diller ma'lumoti</h4>
+                    <a class="btn btn-primary ms-auto" href="{{ route('users') }}">Dillerlar</a>
                 </div>
                 <div class="card-body">
                     <!-- User Information Table -->
                     <table class="table mb-4">
                         <tbody>
                         <tr>
-                            <th>User ID</th>
+                            <th>Foydalanuvchi ID</th>
                             <td>{{ $user->id }}</td>
                         </tr>
                         <tr>
-                            <th>Name</th>
+                            <th>Ism</th>
                             <td>{{ $user->name }}</td>
                         </tr>
                         <tr>
@@ -30,19 +30,19 @@
 
                     <!-- Dealer Information Table -->
                     @if($user->dealer)
-                        <h5>Dealer Information</h5>
+                        <h5>Diller ma'lumoti</h5>
                         <table class="table mb-4">
                             <tbody>
                             <tr>
-                                <th>Dealer ID</th>
+                                <th>Diller ID</th>
                                 <td>{{ $user->dealer->id }}</td>
                             </tr>
                             <tr>
-                                <th>Organization</th>
+                                <th>Tashkilot nomi</th>
                                 <td>{{ $user->dealer->name }}</td>
                             </tr>
                             <tr>
-                                <th>Director's Name</th>
+                                <th>Direktor nomi</th>
                                 <td>{{ $user->dealer->director_name }}</td>
                             </tr>
                             <tr>
@@ -50,15 +50,15 @@
                                 <td>{{ $user->dealer->INN }}</td>
                             </tr>
                             <tr>
-                                <th>Office Address</th>
+                                <th>Ofis manzili</th>
                                 <td>{{ $user->dealer->ofice_adres }}</td>
                             </tr>
                             <tr>
-                                <th>Store Address</th>
+                                <th>Do'kon manzili</th>
                                 <td>{{ $user->dealer->store_adres }}</td>
                             </tr>
                             <tr>
-                                <th>Phone Number</th>
+                                <th>Tel raqam</th>
                                 <td>{{ $user->dealer->phone_number }}</td>
                             </tr>
                             </tbody>
@@ -66,16 +66,16 @@
 
                         <!-- Counters Table -->
                         @if($user->dealer->counters->isNotEmpty())
-                            <h5>Counters  ({{$counterCount}})</h5>
+                            <h5>Hisoblagichlar  ({{$counterCount}})</h5>
                             <table class="table">
                                 <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Serial Number</th>
+                                    <th>Seriya raqami</th>
                                     <th>imei</th>
-                                    <th>phone_number</th>
-                                    <th>Created at</th>
-                                    <th>Actions</th>
+                                    <th>Tel raqam</th>
+                                    <th>Yaratilgan sana</th>
+                                    <th>Amallar</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -94,13 +94,13 @@
                                 </tbody>
                             </table>
                         @else
-                            <p>No counters available for this dealer.</p>
+                            <p>Dillerda hali hisoblagichlar mavjud emas.</p>
                         @endif
                     @else
-                        <p>This user does not have an associated dealer.</p>
+                        <p>Bu foydalanuvchi diller emas.</p>
                     @endif
 
-                    <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary mt-3">Edit User</a>
+                    <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary mt-3">O'zgartirish</a>
                 </div>
             </div>
         </div>
