@@ -110,7 +110,7 @@
 
                             <div class="mb-3">
                                 <label for="phone_number" class="form-label">Telefon raqam</label>
-                                <input type="text" name="phone_number" id="phone_number" class="form-control" value="{{ old('phone_number') }}">
+                                <input type="text" name="phone_number" id="phone_number" placeholder="913334567" class="form-control" value="{{ old('phone_number') }}">
                                 @error('phone_number')
                                 <div class="text-danger">{{ $message }}</div>
                                 @enderror
