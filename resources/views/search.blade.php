@@ -27,35 +27,60 @@
 
                 <!-- Add Customer Button (shown only if there are counters) -->
 
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">Seriya raqam</th>
-                            <th scope="col">Kalibiri</th>
-                            <th scope="col">IMEI</th>
-                            <th scope="col">ICCID</th>
-                            <th scope="col">Tel raqam</th>
-                            <th scope="col">Diller</th>
-                            <th scope="col">Amallar</th>
-                        </tr>
-                        </thead>
-                        <tbody id="counterTableBody">
-                        @if($counter)
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead class="d-none d-md-table-header-group">
                             <tr>
-                                <th scope="row">{{ $counter->id }}</th>
-                                <td>{{ $counter->serial_number }}</td>
-                                <td>{{ $counter->caliber }}</td>
-                                <td>{{ $counter->imei }}</td>
-                                <td>{{ $counter->iccid }}</td>
-                                <td>{{ $counter->phone_number ?? 'N/A' }}</td>
-                                <td>{{ $counter->dealer ? $counter->dealer->name : 'N/A' }}</td>
+                                <th scope="col">ID</th>
+                                <th scope="col">Seriya raqam</th>
+                                <th scope="col">Kalibiri</th>
+                                <th scope="col">IMEI</th>
+                                <th scope="col">ICCID</th>
+                                <th scope="col">Tel raqam</th>
+                                <th scope="col">Diller</th>
+                                <th scope="col">Amallar</th>
                             </tr>
-                        @endif
-                        </tbody>
-                    </table>
-                </div>
+                            </thead>
+                            <tbody id="counterTableBody">
+                            @if($counter)
+                                <!-- Desktop view -->
+                                <tr class="d-none d-md-table-row">
+                                    <th scope="row">{{ $counter->id }}</th>
+                                    <td>{{ $counter->serial_number }}</td>
+                                    <td>{{ $counter->caliber }}</td>
+                                    <td>{{ $counter->imei }}</td>
+                                    <td>{{ $counter->iccid }}</td>
+                                    <td>{{ $counter->phone_number ?? 'N/A' }}</td>
+                                    <td>{{ $counter->dealer ? $counter->dealer->name : 'N/A' }}</td>
+                                </tr>
+
+                                <!-- Mobile view -->
+                                <tr class="d-md-none">
+                                    <td><strong>ID:</strong> {{ $counter->id }}</td>
+                                </tr>
+                                <tr class="d-md-none">
+                                    <td><strong>Seriya raqam:</strong> {{ $counter->serial_number }}</td>
+                                </tr>
+                                <tr class="d-md-none">
+                                    <td><strong>Kalibiri:</strong> {{ $counter->caliber }}</td>
+                                </tr>
+                                <tr class="d-md-none">
+                                    <td><strong>IMEI:</strong> {{ $counter->imei }}</td>
+                                </tr>
+                                <tr class="d-md-none">
+                                    <td><strong>ICCID:</strong> {{ $counter->iccid }}</td>
+                                </tr>
+                                <tr class="d-md-none">
+                                    <td><strong>Tel raqam:</strong> {{ $counter->phone_number ?? 'N/A' }}</td>
+                                </tr>
+                                <tr class="d-md-none">
+                                    <td><strong>Diller:</strong> {{ $counter->dealer ? $counter->dealer->name : 'N/A' }}</td>
+                                </tr>
+                            @endif
+                            </tbody>
+                        </table>
+                    </div>
+
                 @if($counter)
                     <button type="button" class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#addCustomerModal">
                         Mijoz kiritish
