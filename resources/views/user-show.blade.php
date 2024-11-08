@@ -67,6 +67,7 @@
                         <!-- Counters Table -->
                         @if($user->dealer->counters->isNotEmpty())
                             <h5>Hisoblagichlar  ({{$counterCount}})</h5>
+                        <div class="table-responsive">
                             <table class="table">
                                 <thead>
                                 <tr>
@@ -93,6 +94,8 @@
                                 @endforeach
                                 </tbody>
                             </table>
+                        </div>
+
                         @else
                             <p>Dillerda hali hisoblagichlar mavjud emas.</p>
                         @endif

@@ -28,7 +28,9 @@ Route::controller(LoginRegisterController::class)->group(function() {
 });
 Route::get('/', [CounterController::class,'search'])->middleware('auth')->name('search');
 Route::post('/customers', [CustomerController::class, 'store'])->middleware('auth')->name('customers.store');
-
+Route::get('/scann',function(){
+    return view('index');
+});
 Route::middleware(['auth','admin'])->prefix('users')->group(function () {
     Route::get('/', [UserController::class, 'users'])->name('users');
     Route::get('/create', [UserController::class, 'create'])->name('users.create');
