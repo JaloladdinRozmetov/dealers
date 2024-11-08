@@ -5,36 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Barcode Scanner</title>
     <!-- Html5-qrcode library from CDN -->
-    <script src="https://unpkg.com/html5-qrcode/minified/html5-qrcode.min.js"></script>
-    <style>
-        #reader {
-            width: 100%;
-            max-width: 400px;
-            margin: auto;
-        }
-    </style>
+    <script src="https://unpkg.com/html5-qrcode@2.0.9/dist/html5-qrcode.min.js"></script>
 </head>
 <body>
-<h1>Scan Barcode</h1>
-<div id="reader"></div>
-<p id="result"></p>
+<div id="qr-reader" style="width: 600px"></div>
+
 
 <script>
     function onScanSuccess(decodedText, decodedResult) {
-        // Handle the result here (e.g., display the result in the HTML)
-        document.getElementById("result").innerText = `Scanned Barcode: ${decodedText}`;
+        console.log(`Code scanned = ${decodedText}`, decodedResult);
     }
-
-    function onScanFailure(error) {
-        // Log errors if needed
-        console.warn(`Scan failed: ${error}`);
-    }
-
-    // Initialize the scanner
-    let html5QrcodeScanner = new Html5QrcodeScanner(
-        "reader", { fps: 10, qrbox: { width: 250, height: 250 } }
-    );
-    html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+    var html5QrcodeScanner = new Html5QrcodeScanner(
+        "qr-reader", { fps: 10, qrbox: 250 });
+    html5QrcodeScanner.render(onScanSuccess);
 </script>
 </body>
 </html>
