@@ -36,7 +36,7 @@
                     </li>
                     <li class="nav-item">
                         @if (auth()->user() && auth()->user()->role === 'admin')
-                            <a class="nav-link {{ request()->is('counters/import') ? 'active' : '' }}" href="{{ route('counters.import') }}">Import Excel</a>
+{{--                            <a class="nav-link {{ request()->is('counters/import') ? 'active' : '' }}" href="{{ route('counters.import') }}">Import Excel</a>--}}
                         @endif
                     </li>
                     <li class="nav-item dropdown">
