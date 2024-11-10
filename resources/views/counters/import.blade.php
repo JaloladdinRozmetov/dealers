@@ -12,8 +12,18 @@
             @csrf
             <div class="mb-3">
                 <label for="file" class="form-label">Fayilni yuklang</label>
-                <input type="file" name="file" class="form-control" required><br>
+                <input type="file" name="file" class="form-control" required>
                 @error('file')
+                <small class="text-danger">{{ $message }}</small>
+                @enderror
+            </div>
+            <div class="mb-3">
+                <label for="type" class="form-label">Fayil turi</label>
+                <select name="type" class="form-control" required>
+                    <option value="data">Data</option>
+                    <option value="phone_number">Phone Number</option>
+                </select>
+                @error('type')
                 <small class="text-danger">{{ $message }}</small>
                 @enderror
             </div>

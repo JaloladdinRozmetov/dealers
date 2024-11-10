@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Jobs\ImportJob;
+use App\Jobs\ImportPhoneJob;
 use App\Models\Counter;
 use App\Models\Customer;
 use App\Models\Dealer;
@@ -176,13 +177,21 @@ class CounterController extends Controller
     public function import(Request $request)
     {
         $request->validate([
-            'file' => 'required|mimes:xlsx,xls,csv',
+            'file' => 'required|mimes:xlsx,csv',
+            'type' => 'required|in:data,phone_number',
         ]);
 
+        $fileType = $request->input('type');
         $filePath = $request->file('file')->store('imports');
 
-        ImportJob::dispatch($filePath);
+        if ($fileType === 'data') {
+            ImportJob::dispatch($filePath);
+
+        } elseif ($fileType === 'phone_number') {
+            ImportPhoneJob::dispatch($filePath);
+        }
 
         return back()->with('success', 'Data Imported Successfully');
+
     }
 }
