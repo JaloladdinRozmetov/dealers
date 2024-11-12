@@ -31,7 +31,7 @@
                                 <th scope="col">Kalibiri</th>
                                 <th scope="col">IMEI</th>
                                 <th scope="col">ICCID</th>
-                                <th scope="col">Tel raqam</th>
+                                <th scope="col">Hisoblagich telefon raqam</th>
                                 <th scope="col">Diller</th>
                                 <th scope="col">Amallar</th>
                             </tr>
@@ -66,7 +66,7 @@
                                     <td><strong>ICCID:</strong> {{ $counter->iccid }}</td>
                                 </tr>
                                 <tr class="d-md-none">
-                                    <td><strong>Tel raqam:</strong> {{ $counter->phone_number ?? 'N/A' }}</td>
+                                    <td><strong>Hisoblagich telefon raqami:</strong> {{ $counter->phone_number ?? 'N/A' }}</td>
                                 </tr>
                                 <tr class="d-md-none">
                                     <td><strong>Diller:</strong> {{ $counter->dealer ? $counter->dealer->name : 'N/A' }}</td>
