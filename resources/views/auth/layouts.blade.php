@@ -60,7 +60,7 @@
         </div>
     </nav>
 
-    <div class="container">
+    <div class="{{ request()->routeIs('login') ? '' : 'container' }}">
         @yield('content')
     </div>
 
