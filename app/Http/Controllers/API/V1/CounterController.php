@@ -17,13 +17,14 @@ class CounterController extends Controller
     public function caliber(Request $request)
     {
         $request->validate([
-            'serialNumber' => 'required|integer|max:999999999999999|exists:counters,serial_number',
+            'serialNumbers' => 'required|array',
+            'serialNumbers.*' => 'integer|max:999999999999999|exists:counters,serial_number',
         ]);
-        $counter = Counter::query()->select('caliber')->where('serial_number',$request->serialNumber)->firstOrFail();
+        $counters = Counter::query()->select('serial_number','caliber')->whereIn('serial_number',$request->serialNumbers)->get();
 
         return response()->json([
             'message' => 'Success',
-            'Caliber' => $counter->caliber,
+            'data' => $counters->toArray(),
         ]);
     }
 
