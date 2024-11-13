@@ -14,4 +14,4 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::middleware('auth:sanctum')->get('/caliber', [\App\Http\Controllers\API\V1\CounterController::class, 'caliber']);
+Route::middleware('auth:sanctum')->post('/caliber', [\App\Http\Controllers\API\V1\CounterController::class, 'caliber']);
