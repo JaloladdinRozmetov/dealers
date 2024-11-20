@@ -173,11 +173,15 @@ class CounterController extends Controller
                 'phone_number' => $request->phone_number,
             ]);
         $dealer = Dealer::query()->where('user_id',auth()->user()->id)->first();
-        if (auth()->user()->role == 'dealer'){
-            Counter::query()->where('id',$request->counter_id)->update([
-                'dealer_id' => $dealer->id,
-                'customer_id' => $customer->id
-            ]);
+        if (auth()->user()->role == 'dealer' and $dealer){
+            $counter = Counter::query()->whereNull('dealer_id')->where('id',$request->counter_id)->firstOrFail();
+            if ($counter)
+            {
+                $counter->update([
+                    'dealer_id' => $dealer->id,
+                    'customer_id' => $customer->id
+                ]);
+            }
 
             return redirect()->route('search')->with('success', 'Customer added and counter updated successfully.');
         }else{

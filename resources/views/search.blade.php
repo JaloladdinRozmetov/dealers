@@ -78,7 +78,7 @@
                         </table>
                     </div>
 
-                @if($counter)
+                @if($counter and !$counter->dealer)
                     <button type="button" class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#addCustomerModal">
                         Mijoz kiritish
                     </button>
