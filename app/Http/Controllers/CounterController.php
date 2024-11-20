@@ -113,6 +113,16 @@ class CounterController extends Controller
     public function show($id)
     {
         $counter = Counter::query()->with('customer', 'dealer')->findOrFail($id);
+        try {
+            $status_counter = $this->counterService->fetchMeters(0,1,$counter->serial_number);
+            if($status_counter['data']['meters'][0]){
+                $counter['status'] = $status_counter['data']['meters'][0]['status'];
+            }else{
+                $counter['status'] = null;
+            }
+        }catch (\Exception $exception){
+            $counter['status'] = null;
+        }
 
         return view('counters.show', compact('counter'));
     }

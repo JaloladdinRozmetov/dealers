@@ -39,6 +39,10 @@
                             <td>{{ $counter->phone_number }}</td>
                         </tr>
                         <tr>
+                            <th>Status</th>
+                            <td>{{ $counter->status }}</td>
+                        </tr>
+                        <tr>
                             <th>Yaratilgan sana</th>
                             <td>{{ $counter->created_at }}</td>
                         </tr>
