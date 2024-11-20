@@ -57,12 +57,12 @@
                                 <td>
                                     <div class="d-flex">
                                         @if(auth()->user()->role == 'admin')
-                                            <form action="{{ route('counters.destroy', $counter->id) }}" method="post">
+                                            <button type="button" class="btn btn-danger" onclick="confirmDelete({{ $counter->id }})">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                            <form id="delete-form-{{ $counter->id }}" action="{{ route('counters.destroy', $counter->id) }}" method="post" style="display: none;">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button class="btn btn-danger" onclick="return confirm('Are you sure?')">
-                                                    <i class="bi bi-trash"></i>
-                                                </button>
                                             </form>
                                             <a class="btn btn-primary ms-2" href="{{ route('counters.edit', $counter->id) }}">
                                                 <i class="bi bi-pencil-fill"></i>
@@ -83,5 +83,11 @@
         </div>
 
     </div>
-
+    <script>
+        function confirmDelete(counterId) {
+            if (confirm('Hisoblagichni o\'chirishga ishonchingiz komilmi?')) {
+                document.getElementById(`delete-form-${counterId}`).submit();
+            }
+        }
+    </script>
 @endsection
