@@ -52,7 +52,7 @@ class CounterController extends Controller
 
     public function search(Request $request)
     {
-        $query = Counter::query()->whereNull('dealer_id')->whereNull('customer_id')->with('dealer');
+        $query = Counter::query()->with('dealer');
 
         if ($request->filled('search')) {
             $query->where('serial_number', 'like', '%' . $request->search);
