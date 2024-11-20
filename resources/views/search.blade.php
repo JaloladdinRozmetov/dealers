@@ -24,20 +24,18 @@
 
                     <div class="table-responsive">
                         <table class="table">
-                            <thead class="d-none d-md-table-header-group">
-                            <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">Seriya raqam</th>
-                                <th scope="col">Kalibiri</th>
-                                <th scope="col">IMEI</th>
-                                <th scope="col">ICCID</th>
-                                <th scope="col">Hisoblagich telefon raqam</th>
-                                <th scope="col">Diller</th>
-                                <th scope="col">Amallar</th>
-                            </tr>
-                            </thead>
                             <tbody id="counterTableBody">
                             @if($counter)
+                                <tr class="d-none d-md-table-row">
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Seriya raqam</th>
+                                    <th scope="col">Kalibiri</th>
+                                    <th scope="col">IMEI</th>
+                                    <th scope="col">ICCID</th>
+                                    <th scope="col">Hisoblagich telefon raqam</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Diller</th>
+                                </tr>
                                 <!-- Desktop view -->
                                 <tr class="d-none d-md-table-row">
                                     <th scope="row">{{ $counter->id }}</th>
@@ -46,6 +44,7 @@
                                     <td>{{ $counter->imei }}</td>
                                     <td>{{ $counter->iccid }}</td>
                                     <td>{{ $counter->phone_number ?? 'N/A' }}</td>
+                                    <td>{{ $counter->status}}</td>
                                     <td>{{ $counter->dealer ? $counter->dealer->name : 'N/A' }}</td>
                                 </tr>
 
@@ -67,6 +66,9 @@
                                 </tr>
                                 <tr class="d-md-none">
                                     <td><strong>Hisoblagich telefon raqami:</strong> {{ $counter->phone_number ?? 'N/A' }}</td>
+                                </tr>
+                                <tr class="d-md-none">
+                                    <td><strong>Status:</strong> {{ $counter->status}}</td>
                                 </tr>
                                 <tr class="d-md-none">
                                     <td><strong>Diller:</strong> {{ $counter->dealer ? $counter->dealer->name : 'N/A' }}</td>

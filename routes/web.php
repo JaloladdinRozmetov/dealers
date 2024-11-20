@@ -42,7 +42,7 @@ Route::middleware(['auth','admin'])->prefix('users')->group(function () {
 });
 
 Route::middleware(['auth','admin'])->prefix('counters')->group(function () {
-    Route::get('/counters/search', [CounterController::class, 'search'])->name('counters.search');
+//    Route::get('/counters/search', [CounterController::class, 'search'])->name('counters.search');
 //    Route::get('/counters/import', [CounterController::class, 'counterImport'])->name('counters.import');
 //    Route::post('/counters/import', [CounterController::class, 'import'])->name('import.excel');
     Route::get('/', [CounterController::class, 'index'])->name('counters');

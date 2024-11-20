@@ -7,11 +7,18 @@ use App\Jobs\ImportPhoneJob;
 use App\Models\Counter;
 use App\Models\Customer;
 use App\Models\Dealer;
+use App\Services\CounterConnectService;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
 class CounterController extends Controller
 {
+    protected $counterService;
+
+    public function __construct(CounterConnectService $counterService)
+    {
+        $this->counterService = $counterService;
+    }
 
     public function index(Request $request)
     {
@@ -45,7 +52,6 @@ class CounterController extends Controller
 
     public function search(Request $request)
     {
-
         $query = Counter::query()->whereNull('dealer_id')->whereNull('customer_id')->with('dealer');
 
         if ($request->filled('search')) {
@@ -58,6 +64,16 @@ class CounterController extends Controller
         $counter = $query->first();
 
         if ($counter){
+            try {
+               $status_counter = $this->counterService->fetchMeters(0,1,$counter->serial_number);
+               if($status_counter['data']['meters'][0]){
+                   $counter['status'] = $status_counter['data']['meters'][0]['status'];
+               }else{
+                   $counter['status'] = null;
+               }
+            }catch (\Exception $exception){
+                $counter['status'] = null;
+            }
             return view('search', compact('counter'));
         }else{
             return redirect()->route('search')->withErrors(['error'=>'Bu seriya raqamidagi hisoblagich topilmadi!']);
