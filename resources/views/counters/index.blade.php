@@ -34,6 +34,7 @@
                     <table class="table">
                         <thead>
                         <tr>
+                            <th></th>
                             <th scope="col">ID</th>
                             <th scope="col">Seriya raqam</th>
                             <th scope="col">Kalibiri</th>
@@ -47,6 +48,7 @@
                         <tbody id="counterTableBody">
                         @foreach($counters as $counter)
                             <tr>
+                                <th>{{ $loop->iteration }}</th>
                                 <th scope="row">{{ $counter->id }}</th>
                                 <td>{{ $counter->serial_number }}</td>
                                 <td>{{ $counter->caliber }}</td>
