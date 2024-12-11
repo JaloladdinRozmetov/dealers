@@ -35,7 +35,6 @@
                         <thead>
                         <tr>
                             <th></th>
-                            <th scope="col">ID</th>
                             <th scope="col">Seriya raqam</th>
                             <th scope="col">Kalibiri</th>
                             <th scope="col">IMEI</th>
@@ -49,7 +48,6 @@
                         @foreach($counters as $counter)
                             <tr>
                                 <th>{{ ($counters->currentPage() - 1) * $counters->perPage() + $loop->iteration }}</th>
-                                <th scope="row">{{ $counter->id }}</th>
                                 <td>{{ $counter->serial_number }}</td>
                                 <td>{{ $counter->caliber }}</td>
                                 <td>{{ $counter->imei }}</td>
