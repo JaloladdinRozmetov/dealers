@@ -27,7 +27,7 @@ Route::controller(LoginRegisterController::class)->group(function() {
     Route::post('/logout', 'logout')->name('logout');
 });
 Route::get('/', [CounterController::class,'search'])->middleware('auth')->name('search');
-Route::post('/customers', [CustomerController::class, 'store'])->middleware('auth')->name('customers.store');
+//Route::post('/customers', [CustomerController::class, 'store'])->middleware('auth')->name('customers.store');
 Route::get('/scann',function(){
     return view('index');
 });

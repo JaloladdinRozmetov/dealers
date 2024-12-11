@@ -15,6 +15,7 @@ class CustomerController extends Controller
             'director_name' => 'nullable|string|max:255',
             'counter_address' => 'required|string|max:255',
             'phone_number' => 'nullable|numeric',
+            'personal_account_number' => 'nullable|numeric',
         ]));
 
         return redirect()->back()->with('success', 'Customer added successfully.');

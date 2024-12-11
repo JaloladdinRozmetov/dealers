@@ -15,10 +15,17 @@ class Customer extends Model
         'director_name',
         'counter_address',
         'phone_number',
+        'personal_account_number',
+        'region_id'
     ];
 
     public function counters()
     {
         return $this->hasMany(Counter::class);
+    }
+
+    public function region()
+    {
+        return $this->belongsTo(Region::class);
     }
 }

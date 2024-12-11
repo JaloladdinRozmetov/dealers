@@ -102,16 +102,20 @@
                                 <td>{{ $counter->customer->organization_name }}</td>
                             </tr>
                             <tr>
-                                <th>INN</th>
+                                <th>Shaxsiy hisob raqami</th>
+                                <td>{{ $counter->customer->personal_account_number }}</td>
+                            </tr>
+                            <tr>
+                                <th>INN/PINFL</th>
                                 <td>{{ $counter->customer->organization_INN }}</td>
                             </tr>
                             <tr>
-                                <th>Direktor nomi</th>
+                                <th>DIREKTOR F.I.O</th>
                                 <td>{{ $counter->customer->director_name }}</td>
                             </tr>
                             <tr>
-                                <th>Hisoblagich manzili</th>
-                                <td>{{ $counter->customer->counter_address }}</td>
+                                <th>Hisoblagich o’rnatiladigan manzil</th>
+                                <td>{{$counter->customer->region->region_name}}: {{ $counter->customer->counter_address }}</td>
                             </tr>
                             <tr>
                                 <th>Tel raqam</th>

@@ -7,6 +7,7 @@ use App\Jobs\ImportPhoneJob;
 use App\Models\Counter;
 use App\Models\Customer;
 use App\Models\Dealer;
+use App\Models\Region;
 use App\Services\CounterConnectService;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -65,6 +66,7 @@ class CounterController extends Controller
 
         if ($counter){
             try {
+                $regions = Region::query()->get();
                $status_counter = $this->counterService->fetchMeters(0,1,$counter->serial_number);
                if($status_counter['data']['meters'][0]){
                    $counter['status'] = $status_counter['data']['meters'][0]['status'];
@@ -74,7 +76,7 @@ class CounterController extends Controller
             }catch (\Exception $exception){
                 $counter['status'] = null;
             }
-            return view('search', compact('counter'));
+            return view('search', compact('counter','regions'));
         }else{
             return redirect()->route('search')->withErrors(['error'=>'Bu seriya raqamidagi hisoblagich topilmadi!']);
         }
@@ -112,7 +114,7 @@ class CounterController extends Controller
      */
     public function show($id)
     {
-        $counter = Counter::query()->with('customer', 'dealer')->findOrFail($id);
+        $counter = Counter::query()->with('customer.region', 'dealer')->findOrFail($id);
         try {
             $status_counter = $this->counterService->fetchMeters(0,1,$counter->serial_number);
             if($status_counter['data']['meters'][0]){
@@ -169,10 +171,13 @@ class CounterController extends Controller
     {
         $request->validate([
             'organization_INN' => 'required|string',
-            'organization_name' => 'string|nullable',
-            'director_name' => 'string|nullable',
-            'counter_address' => 'string|nullable',
-            'phone_number' => 'string|nullable|max:9',
+            'organization_name' => 'required|string|nullable',
+            'director_name' => 'required|string|nullable',
+            'counter_address' => 'required|string|nullable',
+            'phone_number' => 'required|string|nullable|max:9',
+            'region_id' => 'required|exists:regions,id',
+            'personal_account_number' => 'required|string',
+
         ]);
 
         $customer = Customer::query()->firstOrCreate(['organization_INN' => $request->organization_INN],
@@ -181,6 +186,8 @@ class CounterController extends Controller
                 'director_name' => $request->director_name,
                 'counter_address' => $request->counter_address,
                 'phone_number' => $request->phone_number,
+                'personal_account_number' => $request->personal_account_number,
+                'region_id' => $request->region_id
             ]);
         $dealer = Dealer::query()->where('user_id',auth()->user()->id)->first();
         if (auth()->user()->role == 'dealer' and $dealer){

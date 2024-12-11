@@ -107,7 +107,15 @@
                             </div>
 
                             <div class="mb-3">
-                                <label for="organization_INN" class="form-label">Tashkilot INN</label>
+                                <label for="personal_account_number" class="form-label">Shaxsiy hisob raqami</label>
+                                <input type="text" name="personal_account_number" id="personal_account_number" class="form-control" value="{{ old('personal_account_number') }}">
+                                @error('personal_account_number')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="organization_INN" class="form-label">INN/PINFL</label>
                                 <input type="text" name="organization_INN" id="organization_INN" class="form-control" value="{{ old('organization_INN') }}" required>
                                 @error('organization_INN')
                                 <div class="text-danger">{{ $message }}</div>
@@ -115,7 +123,7 @@
                             </div>
 
                             <div class="mb-3">
-                                <label for="director_name" class="form-label">Direktor ismi</label>
+                                <label for="director_name" class="form-label">DIREKTOR F.I.O</label>
                                 <input type="text" name="director_name" id="director_name" class="form-control" value="{{ old('director_name') }}">
                                 @error('director_name')
                                 <div class="text-danger">{{ $message }}</div>
@@ -123,7 +131,22 @@
                             </div>
 
                             <div class="mb-3">
-                                <label for="counter_address" class="form-label">Hisoblagich manzili</label>
+                                <label for="region_id" class="form-label">Viloyat</label>
+                                <select name="region_id" id="region_id" class="form-control" required>
+                                    <option value="" disabled selected>Viloyatni tanlang</option>
+                                    @foreach($regions as $region)
+                                        <option value="{{ $region->id }}" {{ old('region_id') == $region->id ? 'selected' : '' }}>
+                                            {{ $region->region_name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('region_id')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="counter_address" class="form-label">Hisoblagich o’rnatiladigan manzil</label>
                                 <input type="text" name="counter_address" id="counter_address" class="form-control" value="{{ old('counter_address') }}">
                                 @error('counter_address')
                                 <div class="text-danger">{{ $message }}</div>
