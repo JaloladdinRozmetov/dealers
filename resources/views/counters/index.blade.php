@@ -48,7 +48,7 @@
                         <tbody id="counterTableBody">
                         @foreach($counters as $counter)
                             <tr>
-                                <th>{{ $loop->iteration }}</th>
+                                <th>{{ ($counters->currentPage() - 1) * $counters->perPage() + $loop->iteration }}</th>
                                 <th scope="row">{{ $counter->id }}</th>
                                 <td>{{ $counter->serial_number }}</td>
                                 <td>{{ $counter->caliber }}</td>
