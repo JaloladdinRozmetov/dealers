@@ -114,8 +114,12 @@
                                 <td>{{ $counter->customer->director_name }}</td>
                             </tr>
                             <tr>
+                                <th>Viloyat</th>
+                                <td>{{$counter->customer->region->region_name??null}}</td>
+                            </tr>
+                            <tr>
                                 <th>Hisoblagich o’rnatiladigan manzil</th>
-                                <td>{{$counter->customer->region->region_name??null}} {{ $counter->customer->counter_address }}</td>
+                                <td>{{ $counter->customer->counter_address }}</td>
                             </tr>
                             <tr>
                                 <th>Tel raqam</th>
