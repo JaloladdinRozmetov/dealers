@@ -115,7 +115,7 @@
                             </tr>
                             <tr>
                                 <th>Hisoblagich o’rnatiladigan manzil</th>
-                                <td>{{$counter->customer->region->region_name}}: {{ $counter->customer->counter_address }}</td>
+                                <td>{{$counter->customer->region->region_name??null}}: {{ $counter->customer->counter_address }}</td>
                             </tr>
                             <tr>
                                 <th>Tel raqam</th>
