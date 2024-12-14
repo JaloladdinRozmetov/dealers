@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Counter;
 use App\Models\Dealer;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -94,11 +95,15 @@ class UserController extends Controller
     public function show($id)
     {
         // Find the user by ID, including the related dealer and its counters
-        $user = User::with('dealer.counters')->findOrFail($id);
+        $user = User::query()->with('dealer.counters')->findOrFail($id);
+
+        $counters = Counter::query()->whereHas('dealer',function($q) use ($user){
+           $q->where('user_id',$user->id);
+        })->paginate(10);
 
         $counterCount = $user->dealer->counters->count();
 
-        return view('user-show', compact('user','counterCount'));
+        return view('user-show', compact('user','counterCount','counters'));
     }
 
     public function update(Request $request, $id)

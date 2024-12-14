@@ -80,7 +80,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($user->dealer->counters as $counter)
+                                @foreach($counters as $counter)
                                     <tr>
                                         <td>{{ $counter->id }}</td>
                                         <td>{{ $counter->serial_number }}</td>
@@ -94,6 +94,10 @@
                                 @endforeach
                                 </tbody>
                             </table>
+                            <div class="d-flex justify-content-center">
+                                {{ $counters->appends(request()->except('page'))->links() }}
+                            </div>
+
                         </div>
 
                         @else
