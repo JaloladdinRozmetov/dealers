@@ -26,6 +26,8 @@ class CounterController extends Controller
 
         $query = Counter::query();
 
+        $dealers = Dealer::query()->select('name','id')->get();
+
         // Apply search filter if present
         if ($request->filled('search')) {
             $query->where(function ($q) use ($request) {
@@ -41,13 +43,15 @@ class CounterController extends Controller
         if ($request->status === 'notSold') {
             $query->whereNull('dealer_id')->whereNull('customer_id');
         } else {
-            $query->whereHas('dealer'); // Default to "sold" if no status specified
+            $query->whereHas('dealer')->when($request->filled('dealer'), function ($q) {
+                $q->where('dealer_id', request('dealer'));
+            }); // Default to "sold" if no status specified
         }
 
         // Paginate results
         $counters = $query->paginate(10);
 
-        return view('counters.index', compact('counters'));
+        return view('counters.index', compact('counters','dealers'));
     }
 
 

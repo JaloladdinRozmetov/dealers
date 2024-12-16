@@ -25,6 +25,13 @@
                         <option value="notSold" {{ request('status') === 'notSold' ? 'selected' : '' }}>Sotilmagan</option>
                     </select>
 
+                    <select name="dealer" id="dealer" class="form-select me-2">
+                        <option value="">None</option>
+                        @foreach($dealers as $dealer)
+                            <option value="{{$dealer->id}}">{{$dealer->name}}</option>
+                        @endforeach
+                    </select>
+
                     <button type="submit" class="btn btn-primary">Qidiruv</button>
                 </form>
 
