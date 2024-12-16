@@ -26,7 +26,7 @@
                     </select>
 
                     <select name="dealer" id="dealer" class="form-select me-2">
-                        <option value="">None</option>
+                        <option value="">Diller</option>
                         @foreach($dealers as $dealer)
                             <option value="{{$dealer->id}}">{{$dealer->name}}</option>
                         @endforeach
