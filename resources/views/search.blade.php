@@ -107,7 +107,7 @@
                             </div>
 
                             <div class="mb-3">
-                                <label for="personal_account_number" class="form-label">Shaxsiy hisob raqami</label>
+                                <label for="personal_account_number" class="form-label">O'zsuvta'minot hisob raqami</label>
                                 <input type="text" name="personal_account_number" id="personal_account_number" class="form-control" value="{{ old('personal_account_number') }}">
                                 @error('personal_account_number')
                                 <div class="text-danger">{{ $message }}</div>

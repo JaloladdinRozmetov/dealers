@@ -102,7 +102,7 @@
                                 <td>{{ $counter->customer->organization_name }}</td>
                             </tr>
                             <tr>
-                                <th>Shaxsiy hisob raqami</th>
+                                <th>O'zsuvta'minot hisob raqami</th>
                                 <td>{{ $counter->customer->personal_account_number }}</td>
                             </tr>
                             <tr>
