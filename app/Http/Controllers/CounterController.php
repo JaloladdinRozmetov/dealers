@@ -219,7 +219,7 @@ class CounterController extends Controller
     {
 
         $request->validate([
-            'file' => 'required|mimes:csv,txt|max:500000',
+            'file' => 'required|mimes:csv|max:500000',
             'type' => 'required|in:data,phone_number',
         ]);
 
