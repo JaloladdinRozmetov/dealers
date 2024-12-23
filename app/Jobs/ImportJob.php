@@ -41,11 +41,10 @@ class ImportJob implements ShouldQueue
         if (($handle = fopen($file_path, 'r')) !== false) {
             while (($data = fgetcsv($handle, 10000, ',')) !== false) {
 
-                dd(trim($data[0]));
-                $serial_number =(int) trim( $data[0]);
+                $serial_number = trim( $data[0]);
                 $caliber = (string) trim($data[1]);
-                $imei = (int) trim($data[2]);
-                $iccid =(int) trim($data[3]);
+                $imei =  trim($data[2]);
+                $iccid = trim($data[3]);
 
                 try {
                     Counter::query()->updateOrCreate(
