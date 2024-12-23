@@ -217,6 +217,8 @@ class CounterController extends Controller
 
     public function import(Request $request)
     {
+        dd($request->file('file')->getMimeType());
+
         $request->validate([
             'file' => 'required|mimes:csv|max:500000',
             'type' => 'required|in:data,phone_number',
