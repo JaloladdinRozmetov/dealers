@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CounterController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\StatisticController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginRegisterController;
@@ -46,6 +47,7 @@ Route::middleware(['auth','admin'])->prefix('counters')->group(function () {
 //    Route::get('/counters/import', [CounterController::class, 'counterImport'])->name('counters.import');
 //    Route::post('/counters/import', [CounterController::class, 'import'])->name('import.excel');
     Route::get('/', [CounterController::class, 'index'])->name('counters');
+    Route::get('/statistics', [StatisticController::class, 'statistics'])->name('counters.statistics');
     Route::get('/create', [CounterController::class, 'create'])->middleware('admin')->name('counters.create');
     Route::post('/', [CounterController::class, 'store'])->middleware('admin')->name('counters.store');
     Route::get('/{counter}/edit', [CounterController::class, 'edit'])->middleware('admin')->name('counters.edit');
