@@ -37,7 +37,7 @@
                 },
             ],
             stroke: {
-                width: [0, 3],
+                width: [0, 4],
                 curve: 'smooth' // Smooth area line
             },
             plotOptions: {
@@ -61,7 +61,10 @@
                         style: {
                             color: '#008FFB',
                         }
-                    }
+                    },
+                    min: 0, // Ensure the axis starts at 0
+                    max: Math.max(...@json($counterCounts), ...@json($activeCounterCounts)), // Set the max value dynamically
+
                 },
                 {
                     opposite: true,
@@ -76,7 +79,10 @@
                         style: {
                             color: '#775DD0',
                         }
-                    }
+                    },
+                    min: 0, // Ensure the axis starts at 0
+                    max: Math.max(...@json($counterCounts), ...@json($activeCounterCounts)), // Match the max value dynamically
+
                 }
             ],
             colors: ['#008FFB', '#775DD0'], // Set colors for series
