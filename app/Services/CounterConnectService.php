@@ -34,4 +34,20 @@ class CounterConnectService
 
         throw new \Exception('Error fetching meters: ' . $response->body());
     }
+
+    public function fetchMeterStatus($serialNumbers)
+    {
+        $url = $this->baseUrl . 'meters/status';
+
+        $response = Http::withHeaders([
+            'Authorization' => $this->token,
+            'Content-Type'  => 'application/json',
+        ])->post($url, $serialNumbers);
+
+        if ($response->successful()) {
+            return $response->json();
+        }
+
+        throw new \Exception('Error fetching meters: ' . $response->body());
+    }
 }

@@ -30,6 +30,11 @@
                     type: 'column', // Bar/Column data
                     data: @json($counterCounts) // Replace with dynamic data if needed
                 },
+                {
+                    name: 'Aktivlar',
+                    type: 'column', // Bar/Column data
+                    data: @json($activeCounterCounts) // Replace with dynamic data if needed
+                },
             ],
             stroke: {
                 width: [0, 3],
