@@ -5,11 +5,7 @@
     <div class="row justify-content-center mt-5">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header d-flex">Hisoblagichlar
-                    @if(auth()->user()->role == 'admin')
-                        <a class="btn btn-success ms-auto" href="{{ route('counters.create') }}">Yaratish</a>
-                    @endif
-                </div>
+                <div class="card-header d-flex">Hisoblagichlar</div>
 
                 @if (session('success'))
                     <div class="alert alert-success" role="alert">
@@ -29,6 +25,7 @@
                             <th scope="col">Viloyat</th>
                             <th scope="col">Hisoblagich manzili</th>
                             <th scope="col">Telefon raqam</th>
+                            <th></th>
                         </tr>
                         </thead>
                         <tbody id="counterTableBody">
@@ -40,6 +37,7 @@
                                 <td>{{ $customer->organization_INN }}</td>
                                 <td>{{ $customer->director_name }}</td>
                                 <td>{{ $customer->region->region_name ?? 'N/A' }}</td>
+                                <td>{{ $customer->counter_address}}</td>
                                 <td>{{ $customer->phone_number}}</td>
                                 <td>
                                     <div class="d-flex">
