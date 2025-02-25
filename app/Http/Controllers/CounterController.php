@@ -180,7 +180,7 @@ class CounterController extends Controller
             'counter_address' => 'required|string|nullable',
             'phone_number' => 'required|string|nullable|max:9',
             'region_id' => 'required|exists:regions,id',
-            'personal_account_number' => 'required|string',
+            'personal_account_number' => 'required|int',
 
         ]);
 
