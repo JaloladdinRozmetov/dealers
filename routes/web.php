@@ -28,7 +28,6 @@ Route::controller(LoginRegisterController::class)->group(function() {
     Route::post('/logout', 'logout')->name('logout');
 });
 Route::get('/', [CounterController::class,'search'])->middleware('auth')->name('search');
-//Route::post('/customers', [CustomerController::class, 'store'])->middleware('auth')->name('customers.store');
 Route::get('/scann',function(){
     return view('index');
 });
@@ -40,6 +39,13 @@ Route::middleware(['auth','admin'])->prefix('users')->group(function () {
     Route::get('/{user}/show', [UserController::class, 'show'])->name('users.show');
     Route::put('/{user}', [UserController::class, 'update'])->name('users.update');
     Route::delete('/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+});
+
+Route::middleware(['auth','admin'])->prefix('customers')->group(function () {
+    Route::get('/', [CustomerController::class, 'index'])->name('customers.index');
+    Route::get('/{customer}/edit', [CustomerController::class, 'edit'])->name('customers.edit');
+    Route::put('/{customer}', [CustomerController::class, 'update'])->name('customers.update');
+
 });
 
 Route::middleware(['auth','admin'])->prefix('counters')->group(function () {
