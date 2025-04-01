@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Counter;
 use App\Models\Customer;
 use App\Models\Region;
 use Illuminate\Http\Request;
@@ -53,10 +54,13 @@ class CustomerController extends Controller
      * @param Customer $customer
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application
      */
-    public function edit(Customer $customer)
+    public function edit($id)
     {
+        $customer = Customer::query()->findOrFail($id);
+        $counters = Counter::query()->select('id','imei','serial_number','created_at')->where('customer_id', $id)->paginate(10);
         $regions = Region::all();
-        return view('customers.edit', compact('customer','regions'));
+
+        return view('customers.edit', compact('customer','regions','counters'));
     }
 
     public function update(Request $request, Customer $customer)
