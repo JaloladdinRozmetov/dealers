@@ -52,7 +52,7 @@
                             <select name="region" id="region" class="form-control @error('region') is-invalid @enderror" required>
                                 <option value="" disabled>Regionni tanlang</option>
                                 @foreach($regions as $region)
-                                    <option value="{{$region->id}}" {{ old('region', $customer->region->rregion_name) == $region->region_name ? 'selected' : '' }} @if($region->region_name == $customer->region->region_name) selected @endif >{{$region->region_name}}</option>
+                                    <option value="{{$region->id}}" {{ old('region', $customer->region->region_name) == $region->region_name ? 'selected' : '' }} @if($region->region_name == $customer->region->region_name) selected @endif >{{$region->region_name}}</option>
                                 @endforeach
                             </select>
                             @error('region')
@@ -72,6 +72,63 @@
                     </form>
                 </div>
             </div>
+            @if($counters->isNotEmpty())
+                <div class="mt-5">
+                <h5>Hisoblagichlar  ({{count($counters)}})</h5>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Seriya raqami</th>
+                            <th>imei</th>
+                            <th>Tel raqam</th>
+                            <th>Yaratilgan sana</th>
+                            <th>Amallar</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($counters as $counter)
+                            <tr>
+                                <td>{{ $counter->id }}</td>
+                                <td>{{ $counter->serial_number }}</td>
+                                <td>{{ $counter->imei }}</td>
+                                <td>{{ $counter->phone_number }}</td>
+                                <td>{{ $counter->created_at }}</td>
+                                <td>
+                                    <a class="btn btn-success" href="{{route('counters.show',$counter->id)}}"><i class="bi bi-eye"></i></a>
+
+                                    @if(auth()->user()->role == 'admin')
+                                        <button type="button" class="btn btn-danger" onclick="confirmDelete({{ $counter->id }})">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                        <form id="delete-form-{{ $counter->id }}" action="{{ route('counters.remove', $counter->id) }}" method="post" style="display: none;">
+                                            @csrf
+                                            @method('PUT')
+                                        </form>
+                                    @endif
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                    <div class="d-flex justify-content-center">
+                        {{ $counters->appends(request()->except('page'))->links() }}
+                    </div>
+
+                </div>
+                </div>
+            @else
+                <p>Mijozda hali hisoblagichlar mavjud emas.</p>
+            @endif
         </div>
     </div>
+
+    <script>
+        function confirmDelete(counterId) {
+            if (confirm('Hisoblagichni o\'chirishga ishonchingiz komilmi?')) {
+                document.getElementById(`delete-form-${counterId}`).submit();
+            }
+        }
+    </script>
 @endsection
