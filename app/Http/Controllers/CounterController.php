@@ -180,7 +180,7 @@ class CounterController extends Controller
             'counter_address' => 'required|string|nullable',
             'phone_number' => 'required|string|nullable|max:9',
             'region_id' => 'required|exists:regions,id',
-            'personal_account_number' => 'required|string',
+            'personal_account_number' => 'required|int',
 
         ]);
 
@@ -235,5 +235,16 @@ class CounterController extends Controller
 
         return back()->with('success', 'Data Imported Successfully');
 
+    }
+
+    public function remove($id)
+    {
+        $counter = Counter::query()->findOrFail($id);
+        $counter->update([
+            'customer_id' => null,
+            'dealer_id' => null,
+        ]);
+
+        return redirect()->route('counters')->with('success', 'Hisbolagich mijozdan muvafaqiyatli olib tashalandi!.');
     }
 }
