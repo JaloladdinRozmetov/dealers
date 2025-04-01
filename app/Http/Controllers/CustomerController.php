@@ -14,9 +14,25 @@ class CustomerController extends Controller
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application
      */
-    public function index()
+    public function index(Request $request)
     {
-        $customers = Customer::query()->with('region')->paginate(15);
+        $query = Customer::with('region', 'counters');
+
+        if ($request->filled('search')) {
+            $search = $request->search;
+
+            $query->where(function ($q) use ($search) {
+                $q->where('organization_name', 'like', "%$search%")
+                    ->orWhere('organization_INN', 'like', "%$search%")
+                    ->orWhere('phone_number', 'like', "%$search%")
+                    ->orWhere('director_name', 'like', "%$search%")
+                    ->orWhereHas('counters', function ($q) use ($search) {
+                        $q->where('serial_number', 'like', "%$search%");
+                    });
+            });
+        }
+
+        $customers = $query->paginate(10);
 
         return view('customers.index', compact('customers'));
     }

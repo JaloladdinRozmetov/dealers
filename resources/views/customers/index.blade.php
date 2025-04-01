@@ -13,6 +13,15 @@
                     </div>
                 @endif
 
+                <form action="{{ route('customers.index') }}" method="GET" class="m-3">
+                    <div class="input-group">
+                        <input type="text" name="search" class="form-control" placeholder="Seriya raqamini kiriting"
+                               value="{{ request('search') }}">
+                        <button type="submit" class="btn btn-primary">Qidirish</button>
+                        <a href="{{ route('customers.index') }}" class="btn btn-secondary">Tozalash</a>
+                    </div>
+                </form>
+
                 <div class="table-responsive">
                     <table class="table">
                         <thead>
