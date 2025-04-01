@@ -52,7 +52,7 @@
                             <select name="region" id="region" class="form-control @error('region') is-invalid @enderror" required>
                                 <option value="" disabled>Regionni tanlang</option>
                                 @foreach($regions as $region)
-                                    <option value="{{$region->id}}" {{ old('region', $customer->region->region_name) == $region->region_name ? 'selected' : '' }} @if($region->region_name == $customer->region->region_name) selected @endif >{{$region->region_name}}</option>
+                                    <option value="{{$region->id}}" {{ old('region', $customer->region->region_name ?? null) == $region->region_name ? 'selected' : '' }} @if($region->region_name == $customer->region->region_name) selected @endif >{{$region->region_name}}</option>
                                 @endforeach
                             </select>
                             @error('region')
