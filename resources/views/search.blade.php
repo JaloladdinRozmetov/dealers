@@ -173,8 +173,129 @@
             </div>
         </div>
     @endif
-@endsection
 
+
+    <style>
+        #barcode-scanner {
+            position: relative;
+            width: 100%;
+            max-width: 640px;
+            margin: 0 auto;
+        }
+        #scanner-viewport {
+            width: 100%;
+            height: auto;
+        }
+        .scanner-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 2px solid red;
+            box-sizing: border-box;
+            pointer-events: none;
+        }
+    </style>
+
+    <div class="w-full max-w-md p-4">
+        <h1 class="text-2xl font-bold text-center mb-4">Hisoblagich skaneri</h1>
+        <div id="barcode-scanner" class="bg-white p-4 rounded shadow">
+            <div id="scanner-viewport">
+                <video id="camera-feed" autoplay playsinline class="w-full"></video>
+                <div class="scanner-overlay"></div>
+            </div>
+            <p id="result" class="mt-4 text-center text-lg">shtrix kod...</p>
+        </div>
+        <button id="start-scanner" class="mt-4 w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600">Kamerani yoqish</button>
+        <button id="stop-scanner" class="mt-2 w-full bg-red-500 text-white py-2 rounded hover:bg-red-600 hidden">Kamerani o'chirish</button>
+    </div>
+@endsection
+@push('scripts')
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/quagga@0.12.1/dist/quagga.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const startButton = document.getElementById('start-scanner');
+            const stopButton = document.getElementById('stop-scanner');
+            const resultDisplay = document.getElementById('result');
+            let stream = null;
+
+            startButton.addEventListener('click', async () => {
+                try {
+                    // Request camera access
+                    stream = await navigator.mediaDevices.getUserMedia({
+                        video: { facingMode: 'environment' }
+                    });
+
+                    const video = document.getElementById('camera-feed');
+                    video.srcObject = stream;
+                    video.play();
+
+                    // Initialize QuaggaJS
+                    Quagga.init({
+                        inputStream: {
+                            name: 'Live',
+                            type: 'LiveStream',
+                            target: video,
+                            constraints: {
+                                facingMode: 'environment'
+                            }
+                        },
+                        decoder: {
+                            readers: ['ean_reader', 'code_128_reader', 'upc_reader']
+                        }
+                    }, (err) => {
+                        if (err) {
+                            console.error('Quagga init error:', err);
+                            resultDisplay.textContent = 'Error initializing scanner';
+                            return;
+                        }
+                        Quagga.start();
+                        startButton.classList.add('hidden');
+                        stopButton.classList.remove('hidden');
+                    });
+
+                    // Handle barcode detection
+                    Quagga.onDetected((data) => {
+                        const code = data.codeResult.code;
+                        resultDisplay.textContent = `Barcode: ${code}`;
+
+                        // Stop scanner to prevent multiple detections
+                        Quagga.stop();
+                        stopCamera();
+
+                        console.log(code)
+                        // Construct and redirect to the new URL
+                        const newUrl = "{{ route('search') }}?search="+code;
+                        window.location.href = newUrl;
+                    });
+
+                } catch (error) {
+                    console.error('Camera access error:', error);
+                    resultDisplay.textContent = 'Error accessing camera';
+                }
+            });
+
+            stopButton.addEventListener('click', () => {
+                Quagga.stop();
+                stopCamera();
+                startButton.classList.remove('hidden');
+                stopButton.classList.add('hidden');
+                resultDisplay.textContent = 'Scan a barcode...';
+            });
+
+            function stopCamera() {
+                if (stream) {
+                    stream.getTracks().forEach(track => track.stop());
+                    stream = null;
+                    const video = document.getElementById('camera-feed');
+                    video.srcObject = null;
+                }
+            }
+        });
+    </script>
+@endpush
 @if ($errors->any())
     <script>
         document.addEventListener('DOMContentLoaded', function () {
