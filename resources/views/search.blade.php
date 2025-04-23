@@ -174,46 +174,104 @@
         </div>
     @endif
 
+    <div class="w-full max-w-md p-4 mx-auto">
+        <h1 class="text-2xl font-bold text-center mb-4 text-gray-800">Hisoblagich skaneri</h1>
+        <div id="barcode-scanner" class="bg-white p-4 rounded-lg shadow-lg relative">
+            <div id="scanner-viewport" class="relative overflow-hidden rounded-md">
+                <video id="camera-feed" autoplay playsinline class="w-full h-auto object-cover"></video>
+                <div class="scanner-overlay absolute inset-0 border-4 border-red-500 border-opacity-50 pointer-events-none"></div>
+                <div class="scanner-line absolute w-full h-2 bg-red-500 opacity-75 top-1/2 transform -translate-y-1/2 animate-scan"></div>
+            </div>
+            <p id="result" class="mt-4 text-center text-lg text-gray-600">Shtrix kod...</p>
+        </div>
+        <button id="start-scanner" class="mt-4 w-full btn btn-success text-white py-3 rounded-lg hover:bg-blue-700 transition-colors duration-200 font-semibold">Kamerani yoqish</button>
+    </div>
 
     <style>
+        /* Custom styles for the barcode scanner */
         #barcode-scanner {
-            position: relative;
-            width: 100%;
-            max-width: 640px;
-            margin: 0 auto;
+            transition: all 0.3s ease;
         }
+
         #scanner-viewport {
-            width: 100%;
-            height: auto;
+            aspect-ratio: 4 / 3; /* Maintain a consistent aspect ratio for the video */
+            max-height: 50vh; /* Limit height on larger screens */
         }
+
         .scanner-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.2); /* Subtle inner shadow for depth */
+            border-radius: 8px;
+        }
+
+        /* Animated scanning line */
+        @keyframes scan {
+            0% {
+                transform: translateY(-50%) translateX(0);
+                opacity: 0.75;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-50%) translateX(0);
+                opacity: 0.75;
+            }
+        }
+
+        .scanner-line {
+            animation: scan 2s infinite ease-in-out;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 640px) {
+            .w-full.max-w-md {
+                padding: 1rem; /* Reduce padding on mobile */
+            }
+
+            h1 {
+                font-size: 1.5rem; /* Smaller heading on mobile */
+            }
+
+            #barcode-scanner {
+                padding: 1rem; /* Adjust padding for mobile */
+            }
+
+            #scanner-viewport {
+                aspect-ratio: 1 / 1; /* Square aspect ratio for mobile */
+                max-height: 60vh; /* Allow more vertical space on mobile */
+            }
+
+            #result {
+                font-size: 1rem; /* Smaller text on mobile */
+            }
+
+            button {
+                font-size: 0.875rem; /* Smaller button text */
+                padding-top: 0.75rem;
+                padding-bottom: 0.75rem;
+            }
+        }
+
+        /* Improve button focus and active states for accessibility */
+        button:focus {
+            outline: none;
+            ring: 2px solid #3b82f6; /* Tailwind's blue-500 */
+            ring-offset: 2px;
+        }
+
+        button:active {
+            transform: scale(0.98); /* Slight press effect */
+        }
+
+        /* Ensure video fits properly */
+        #camera-feed {
+            object-fit: cover;
             width: 100%;
             height: 100%;
-            border: 2px solid red;
-            box-sizing: border-box;
-            pointer-events: none;
         }
     </style>
-
-    <div class="w-full max-w-md p-4">
-        <h1 class="text-2xl font-bold text-center mb-4">Hisoblagich skaneri</h1>
-        <div id="barcode-scanner" class="bg-white p-4 rounded shadow">
-            <div id="scanner-viewport">
-                <video id="camera-feed" autoplay playsinline class="w-full"></video>
-                <div class="scanner-overlay"></div>
-            </div>
-            <p id="result" class="mt-4 text-center text-lg">shtrix kod...</p>
-        </div>
-        <button id="start-scanner" class="mt-4 w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600">Kamerani yoqish</button>
-        <button id="stop-scanner" class="mt-2 w-full bg-red-500 text-white py-2 rounded hover:bg-red-600 hidden">Kamerani o'chirish</button>
-    </div>
 @endsection
 @push('scripts')
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/quagga@0.12.1/dist/quagga.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const startButton = document.getElementById('start-scanner');
