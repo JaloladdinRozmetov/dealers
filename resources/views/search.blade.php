@@ -331,7 +331,7 @@
 
                 } catch (error) {
                     console.error('Camera access error:', error);
-                    resultDisplay.textContent = 'Error accessing camera';
+                    resultDisplay.textContent = 'Sozlamadan ushbu sahifa uchun kameraga ruhsat bering!';
                 }
             });
 
