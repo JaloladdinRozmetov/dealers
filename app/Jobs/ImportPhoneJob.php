@@ -39,7 +39,7 @@ class ImportPhoneJob implements ShouldQueue
         if (($handle = fopen($file_path, 'r')) !== false) {
             while (($data = fgetcsv($handle, 10000, ',')) !== false) {
                 $phone_number =(int) trim( $data[1]);
-                $iccid =(int) trim($data[2]);
+                $iccid = trim($data[2]);
 
                 try {
                     Counter::query()->where('iccid',$iccid)->update([
