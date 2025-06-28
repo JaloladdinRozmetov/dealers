@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Jobs\ImportJob;
+use App\Jobs\ImportOfflineCounter;
 use App\Jobs\ImportPhoneJob;
 use App\Models\Counter;
 use App\Models\Customer;
@@ -220,7 +221,7 @@ class CounterController extends Controller
 
         $request->validate([
             'file' => 'required|mimes:csv|max:500000',
-            'type' => 'required|in:data,phone_number',
+            'type' => 'required|in:data,phone_number,offline_counter',
         ]);
 
         $fileType = $request->input('type');
@@ -231,6 +232,8 @@ class CounterController extends Controller
 
         } elseif ($fileType === 'phone_number') {
             ImportPhoneJob::dispatch($filePath);
+        }elseif ($fileType === 'offline_counter') {
+            ImportOfflineCounter::dispatch($filePath);
         }
 
         return back()->with('success', 'Data Imported Successfully');

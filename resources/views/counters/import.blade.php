@@ -21,6 +21,7 @@
                 <label for="type" class="form-label">Fayil turi</label>
                 <select name="type" class="form-control" required>
                     <option value="data">Data</option>
+                    <option value="offline_counter">Offline Counters</option>
                     <option value="phone_number">Phone Number</option>
                 </select>
                 @error('type')

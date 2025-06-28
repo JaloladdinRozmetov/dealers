@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CounterController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\OfflineCounterController;
 use App\Http\Controllers\StatisticController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -40,11 +41,14 @@ Route::middleware(['auth','admin'])->prefix('users')->group(function () {
     Route::put('/{user}', [UserController::class, 'update'])->name('users.update');
     Route::delete('/{user}', [UserController::class, 'destroy'])->name('users.destroy');
 });
-
+//Route::get('/offline-counters', [OfflineCounterController::class, 'index'])->middleware(['auth','admin'])->name('offline_counters.index');
+Route::get('/offline-counters/{hash}', [OfflineCounterController::class, 'show'])->name('offline_counters.show');
+Route::get('/user-counter/{serial_number}', [OfflineCounterController::class, 'showByQrCode'])->name('offline_counters.show.Qr-code');
 Route::middleware(['auth','admin'])->prefix('customers')->group(function () {
     Route::get('/', [CustomerController::class, 'index'])->name('customers.index');
     Route::get('/{customer}/edit', [CustomerController::class, 'edit'])->name('customers.edit');
     Route::put('/{customer}', [CustomerController::class, 'update'])->name('customers.update');
+    Route::get('/export-offline-counters', [OfflineCounterController::class, 'export'])->name('offline_counters.export');
 
 });
 
