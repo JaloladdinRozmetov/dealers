@@ -79,7 +79,7 @@
                 <td>{{ $counter->name }}</td>
             </tr>
             <tr>
-                <th>Kalibiri</th>
+                <th>Kalibri</th>
                 <td>{{ $counter->caliber }}</td>
             </tr>
             <tr>
