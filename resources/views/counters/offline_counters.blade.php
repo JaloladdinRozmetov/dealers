@@ -94,10 +94,6 @@
                 <th>Phone Number</th>
                 <td>{{ $counter->phone_number }}</td>
             </tr>
-            <tr>
-                <th>Hash</th>
-                <td>{{ $counter->hash }}</td>
-            </tr>
         </table>
     @else
         <p>Counter not found.</p>
