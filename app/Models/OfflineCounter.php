@@ -12,6 +12,7 @@ class OfflineCounter extends Model
     protected $fillable = [
         'serial_number',
         'caliber',
+        'name',
         'production_time',
         'producer_country',
         'supplier',

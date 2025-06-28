@@ -75,6 +75,10 @@
                 <td>{{ $counter->serial_number }}</td>
             </tr>
             <tr>
+                <th>Name</th>
+                <td>{{ $counter->name }}</td>
+            </tr>
+            <tr>
                 <th>Caliber</th>
                 <td>{{ $counter->caliber }}</td>
             </tr>
