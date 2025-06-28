@@ -17,7 +17,7 @@ class OfflineCountersExport implements FromCollection
             ->map(function ($counter) {
                 return [
                     'serial_number' => $counter->serial_number,
-                    'link' => 'http://localhost:8001/offline-counters/' . $counter->hash,
+                    'link' => 'https://dc.idealmeter.uz/counters/' . $counter->hash,
                 ];
             });
     }

@@ -42,7 +42,7 @@ Route::middleware(['auth','admin'])->prefix('users')->group(function () {
     Route::delete('/{user}', [UserController::class, 'destroy'])->name('users.destroy');
 });
 //Route::get('/offline-counters', [OfflineCounterController::class, 'index'])->middleware(['auth','admin'])->name('offline_counters.index');
-Route::get('/offline-counters/{hash}', [OfflineCounterController::class, 'show'])->name('offline_counters.show');
+Route::get('/counters/{hash}', [OfflineCounterController::class, 'show'])->name('offline_counters.show');
 Route::get('/user-counter/{serial_number}', [OfflineCounterController::class, 'showByQrCode'])->name('offline_counters.show.Qr-code');
 Route::middleware(['auth','admin'])->prefix('customers')->group(function () {
     Route::get('/', [CustomerController::class, 'index'])->name('customers.index');
