@@ -71,31 +71,31 @@
                 <td>{{ $counter->id }}</td>
             </tr>
             <tr>
-                <th>Serial Number</th>
+                <th>Seriya raqami</th>
                 <td>{{ $counter->serial_number }}</td>
             </tr>
             <tr>
-                <th>Name</th>
+                <th>Hisoblagich nomi</th>
                 <td>{{ $counter->name }}</td>
             </tr>
             <tr>
-                <th>Caliber</th>
+                <th>Kalibiri</th>
                 <td>{{ $counter->caliber }}</td>
             </tr>
             <tr>
-                <th>Production Time</th>
-                <td>{{ $counter->production_time }}</td>
+                <th>Ishlab chiqarilgan vaqti</th>
+                <td>{{ \Carbon\Carbon::parse($counter->production_time)->format('Y') }}</td>
             </tr>
             <tr>
-                <th>Producer Country</th>
+                <th>Ishlab chiqaruvchi</th>
                 <td>{{ $counter->producer_country }}</td>
             </tr>
             <tr>
-                <th>Supplier</th>
+                <th>Buyurtmachi</th>
                 <td>{{ $counter->supplier }}</td>
             </tr>
             <tr>
-                <th>Phone Number</th>
+                <th>Telefon raqam</th>
                 <td>{{ $counter->phone_number }}</td>
             </tr>
         </table>
