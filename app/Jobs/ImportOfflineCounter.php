@@ -59,6 +59,8 @@ class ImportOfflineCounter implements ShouldQueue
                             'phone_number' => $phone_number,
                         ]);
 
+                    usleep(100000); // microseconds (10000 = 0.01 sec)
+
                 } catch (\Exception $e) {
                     dd($e->getMessage());
                 }
