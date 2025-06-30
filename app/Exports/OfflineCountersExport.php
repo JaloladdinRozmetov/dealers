@@ -12,9 +12,9 @@ class OfflineCountersExport implements FromCollection
     */
     public function collection()
     {
-        return OfflineCounter::where('name','GIDRO')->select('serial_number', 'hash')
-            ->offset(20000) // Skip first 20,000 rows
-            ->limit(25000)  // Get next 20,000 rows
+        return OfflineCounter::where('name','GIDRO')
+            ->where('caliber','DN15')
+            ->select('serial_number', 'hash')
             ->get()
             ->map(function ($counter) {
                 return [
