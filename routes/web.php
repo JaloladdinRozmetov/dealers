@@ -48,14 +48,14 @@ Route::middleware(['auth','admin'])->prefix('customers')->group(function () {
     Route::get('/', [CustomerController::class, 'index'])->name('customers.index');
     Route::get('/{customer}/edit', [CustomerController::class, 'edit'])->name('customers.edit');
     Route::put('/{customer}', [CustomerController::class, 'update'])->name('customers.update');
-//    Route::get('/export-offline-counters', [OfflineCounterController::class, 'export'])->name('offline_counters.export');
+    Route::get('/export-offline-counters', [OfflineCounterController::class, 'export'])->name('offline_counters.export');
 
 });
 
 Route::middleware(['auth','admin'])->prefix('counters')->group(function () {
 //    Route::get('/counters/search', [CounterController::class, 'search'])->name('counters.search');
-//    Route::get('/counters/import', [CounterController::class, 'counterImport'])->name('counters.import');
-//    Route::post('/counters/import', [CounterController::class, 'import'])->name('import.excel');
+    Route::get('/counters/import', [CounterController::class, 'counterImport'])->name('counters.import');
+    Route::post('/counters/import', [CounterController::class, 'import'])->name('import.excel');
     Route::get('/', [CounterController::class, 'index'])->name('counters');
     Route::get('/statistics', [StatisticController::class, 'statistics'])->name('counters.statistics');
     Route::get('/create', [CounterController::class, 'create'])->middleware('admin')->name('counters.create');
