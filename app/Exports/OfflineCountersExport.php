@@ -13,6 +13,7 @@ class OfflineCountersExport implements FromCollection
     public function collection()
     {
         return OfflineCounter::where('name','GIDRO')->select('serial_number', 'hash')
+            ->limit(20000)
             ->get()
             ->map(function ($counter) {
                 return [
