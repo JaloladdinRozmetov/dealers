@@ -139,7 +139,7 @@ class CounterController extends Controller
      */
     public function edit(Counter $counter)
     {
-        $counter = $counter->with('dealer')->firstOrFail();
+        $counter->load('dealer');
         return view('counters.edit', compact('counter'));
     }
 
