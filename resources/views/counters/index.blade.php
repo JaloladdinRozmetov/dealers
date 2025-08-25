@@ -23,6 +23,7 @@
                     <select name="status" id="status" class="form-select me-2">
                         <option value="sold" {{ request('status') === 'sold' || !request()->has('status') ? 'selected' : '' }}>Sotilgan</option>
                         <option value="notSold" {{ request('status') === 'notSold' ? 'selected' : '' }}>Sotilmagan</option>
+                        <option value="deleted" {{ request('status') === 'deleted' ? 'selected' : '' }}>O'chirilgan</option>
                     </select>
 
                     <select name="dealer" id="dealer" class="form-select me-2">

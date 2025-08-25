@@ -27,6 +27,9 @@ class CounterController extends Controller
 
         $query = Counter::query();
 
+        if ($request->status === 'deleted'){
+            $query = Counter::onlyTrashed();
+        }
         $dealers = Dealer::query()->select('name','id')->get();
 
         // Apply search filter if present
@@ -43,7 +46,7 @@ class CounterController extends Controller
         // Apply filter based on status, default to "sold"
         if ($request->status === 'notSold') {
             $query->whereNull('dealer_id')->whereNull('customer_id');
-        } else {
+        } elseif($request->status === 'sold') {
             $query->whereHas('dealer')->when($request->filled('dealer'), function ($q) {
                 $q->where('dealer_id', request('dealer'));
             }); // Default to "sold" if no status specified

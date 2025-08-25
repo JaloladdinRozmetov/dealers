@@ -64,7 +64,7 @@ Route::middleware(['auth','admin'])->prefix('counters')->group(function () {
     Route::get('/{counter}/show', [CounterController::class, 'show'])->middleware('admin')->name('counters.show');
     Route::put('/{counter}', [CounterController::class, 'update'])->middleware('admin')->name('counters.update');
     Route::delete('/{counter}', [CounterController::class, 'destroy'])->middleware('admin')->name('counters.destroy');
-    Route::put('/{counter}', [CounterController::class, 'remove'])->middleware('admin')->name('counters.remove');
+    Route::post('/{counter}', [CounterController::class, 'remove'])->middleware('admin')->name('counters.remove');
 });
 Route::post('/sold/counter',[CounterController::class,'soldCounter'])->middleware('auth')->name('sold.counter');
 
