@@ -28,7 +28,7 @@ class CounterController extends Controller
         $query = Counter::query();
 
         if ($request->status === 'deleted'){
-            $query = Counter::onlyTrashed();
+            $query = Counter::onlyTrashed()->where('serial_number', '>=', 0);
         }
         $dealers = Dealer::query()->select('name','id')->get();
 
