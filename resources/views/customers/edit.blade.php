@@ -108,7 +108,7 @@
                                         </button>
                                         <form id="delete-form-{{ $counter->id }}" action="{{ route('counters.remove', $counter->id) }}" method="post" style="display: none;">
                                             @csrf
-                                            @method('PUT')
+                                            @method('POST')
                                         </form>
                                     @endif
                                 </td>
