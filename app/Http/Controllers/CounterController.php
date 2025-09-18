@@ -253,4 +253,11 @@ class CounterController extends Controller
 
         return redirect()->route('counters')->with('success', 'Hisbolagich mijozdan muvafaqiyatli olib tashalandi!.');
     }
+
+    public function restore($id)
+    {
+        Counter::withTrashed()->findOrFail($id)->restore();
+
+        return redirect()->route('counters')->with('success', 'Hisbolagich qayta tiklandi!.');
+    }
 }
