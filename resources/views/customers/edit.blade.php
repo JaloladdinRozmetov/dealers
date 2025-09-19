@@ -72,6 +72,14 @@
                             @enderror
                         </div>
 
+                        <div class="mb-3">
+                            <label for="counter_address" class="form-label">Hisoblagich o'rnatilgan manzil</label>
+                            <input type="text" name="counter_address" class="form-control @error('counter_address') is-invalid @enderror" id="counter_address" value="{{ old('counter_address', $customer->counter_address) }}" required>
+                            @error('counter_address')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
                         <button type="submit" class="btn btn-primary">O'zgartirish</button>
                     </form>
                 </div>

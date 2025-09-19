@@ -86,6 +86,7 @@ class CustomerController extends Controller
             'personal_account_number' => 'required|string|max:50',
             'organization_INN' => 'required|numeric|digits_between:9,14',
             'director_name' => 'required|string|max:255',
+            'counter_address' => 'required|string|max:255',
             'region' => 'required|exists:regions,id',
             'phone_number' => 'required|numeric|digits_between:7,15',
         ]);
@@ -97,6 +98,7 @@ class CustomerController extends Controller
             'director_name' => $validated['director_name'],
             'region_id' => $validated['region'],
             'phone_number' => $validated['phone_number'],
+            'counter_address' => $validated['counter_address'],
         ]);
 
         return redirect()->route('customers.index')->with('success', "Mijoz muvaffaqiyatli yangilandi.");
