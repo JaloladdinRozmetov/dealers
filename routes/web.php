@@ -65,6 +65,8 @@ Route::middleware(['auth','admin'])->prefix('counters')->group(function () {
     Route::put('/{counter}', [CounterController::class, 'update'])->middleware('admin')->name('counters.update');
     Route::delete('/{counter}', [CounterController::class, 'destroy'])->middleware('admin')->name('counters.destroy');
     Route::post('/{counter}', [CounterController::class, 'remove'])->middleware('admin')->name('counters.remove');
+    Route::post('/counters/{id}/restore', [CounterController::class, 'restore'])->name('counters.restore');
+
 });
 Route::post('/sold/counter',[CounterController::class,'soldCounter'])->middleware('auth')->name('sold.counter');
 

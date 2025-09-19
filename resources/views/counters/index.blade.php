@@ -64,7 +64,7 @@
                                 <td>{{ $counter->dealer ? $counter->dealer->name : 'N/A' }}</td>
                                 <td>
                                     <div class="d-flex">
-                                        @if(auth()->user()->role == 'admin')
+                                        @if(auth()->user()->role == 'admin' and $counter->deleted_at == null)
                                             <button type="button" class="btn btn-danger" onclick="confirmDelete({{ $counter->id }})">
                                                 <i class="bi bi-trash"></i>
                                             </button>
@@ -76,6 +76,15 @@
                                                 <i class="bi bi-pencil-fill"></i>
                                             </a>
                                             <a class="btn btn-success ms-2" href="{{route('counters.show',$counter->id)}}"><i class="bi bi-eye"></i></a>
+
+                                        @else
+                                            <form action="{{ route('counters.restore', $counter->id) }}" method="POST" class="d-inline">
+                                                @csrf
+                                                <button type="submit" class="btn btn-warning ms-2">
+                                                    <i class="bi bi-arrow-counterclockwise"></i>
+                                                </button>
+                                            </form>
+
                                         @endif
                                     </div>
                                 </td>
