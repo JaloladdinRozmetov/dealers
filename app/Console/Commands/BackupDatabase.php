@@ -19,12 +19,17 @@ class BackupDatabase extends Command
         $filename = 'backup-' . now()->format('Y-m-d_H-i-s') . '.sql';
         $path = storage_path("app/backups/{$filename}");
 
-        // Fetch database credentials from .env via config
+        // Fetch database credentials from .env
         $dbHost = env('DB_HOST', '127.0.0.1');
         $dbPort = env('DB_PORT', '3306');
         $dbName = env('DB_DATABASE', 'laravel');
         $dbUser = env('DB_USERNAME', 'root');
         $dbPassword = env('DB_PASSWORD', '');
+
+        // Create backup folder if not exists
+        if (!is_dir(storage_path('app/backups'))) {
+            mkdir(storage_path('app/backups'), 0755, true);
+        }
 
         // Prepare the mysqldump command
         $command = sprintf(
@@ -40,11 +45,29 @@ class BackupDatabase extends Command
         // Execute the command
         exec($command, $output, $resultCode);
 
-        // Check if backup file was created successfully
         if (file_exists($path) && $resultCode === 0) {
+
+            // -------------------------------
+            // 🔥 DELETE OLD BACKUPS HERE
+            // -------------------------------
+            $backupDir = storage_path('app/backups');
+            $files = glob($backupDir . '/*.sql');
+
+            // Sort descending (newest first)
+            usort($files, function ($a, $b) {
+                return filemtime($b) <=> filemtime($a);
+            });
+
+            // Remove all except first (latest)
+            foreach (array_slice($files, 1) as $oldFile) {
+                unlink($oldFile);
+            }
+
+            // -------------------------------
+
             $this->info("Backup created successfully: {$filename}");
         } else {
-            $this->error("Backup failed! Please check your database credentials or permissions.");
+            $this->error("Backup failed! Check database credentials or permissions.");
         }
     }
 }
