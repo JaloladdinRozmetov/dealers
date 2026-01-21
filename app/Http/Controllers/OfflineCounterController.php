@@ -30,9 +30,17 @@ class OfflineCounterController extends Controller
         return view('offline_counters.index', compact('counters', 'serialNumber'));
     }
 
-    public function export()
+    public function export(Request $request)
     {
-        return Excel::download(new OfflineCountersExport, 'offline_counters.xlsx');
+        return Excel::download(
+            new OfflineCountersExport(
+                $request->input('from'),
+                $request->input('to'),
+                $request->input('name'),
+                $request->input('caliber')
+            ),
+            'offline_counters.xlsx'
+        );
     }
 
     /**

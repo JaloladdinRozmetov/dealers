@@ -50,6 +50,70 @@
                                                         <a class="nav-link {{ request()->is('counters/statistics') ? 'active' : '' }}" href="{{ route('counters.statistics') }}">Statistika</a>
                         @endif
                     </li>
+                    @if (auth()->user() && auth()->user()->role === 'admin')
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle {{ request()->routeIs('offline_counters.export') ? 'active' : '' }}"
+                               href="#"
+                               role="button"
+                               data-bs-toggle="dropdown"
+                               aria-expanded="false">
+                                Export Excel
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-end p-3" style="min-width: 320px;">
+                                <form method="GET" action="{{ route('offline_counters.export') }}">
+                                    <div class="row g-2">
+                                        <div class="col-6">
+                                            <label class="form-label mb-1">From</label>
+                                            <input type="number"
+                                                   name="from"
+                                                   class="form-control"
+                                                   value="{{ request('from') }}"
+                                                   placeholder="1000">
+                                        </div>
+                                        <div class="col-6">
+                                            <label class="form-label mb-1">To</label>
+                                            <input type="number"
+                                                   name="to"
+                                                   class="form-control"
+                                                   value="{{ request('to') }}"
+                                                   placeholder="2000">
+                                        </div>
+
+                                        <div class="col-12">
+                                            <label class="form-label mb-1">Name</label>
+                                            <input type="text"
+                                                   name="name"
+                                                   class="form-control"
+                                                   value="{{ request('name') }}"
+                                                   placeholder="GIDRO">
+                                        </div>
+
+                                        <div class="col-12">
+                                            <label class="form-label mb-1">Caliber</label>
+                                            <input type="text"
+                                                   name="caliber"
+                                                   class="form-control"
+                                                   value="{{ request('caliber') }}"
+                                                   placeholder="DN15">
+                                        </div>
+
+                                        <div class="col-12 d-flex gap-2 mt-2">
+                                            <button type="submit" class="btn btn-success w-100">
+                                                <i class="bi bi-file-earmark-excel"></i> Export
+                                            </button>
+
+                                            <a href="{{ route('offline_counters.export') }}" class="btn btn-outline-secondary">
+                                                Reset
+                                            </a>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </li>
+                    @endif
+
+
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             {{ Auth::user()->name }}
