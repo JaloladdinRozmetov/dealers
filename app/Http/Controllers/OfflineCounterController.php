@@ -37,7 +37,8 @@ class OfflineCounterController extends Controller
                 $request->input('from'),
                 $request->input('to'),
                 $request->input('name'),
-                $request->input('caliber')
+                $request->input('production_time'),
+                $request->input('caliber'),
             ),
             'offline_counters.xlsx'
         );
