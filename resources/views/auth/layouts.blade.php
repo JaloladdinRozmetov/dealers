@@ -98,6 +98,14 @@
                                                    placeholder="DN15">
                                         </div>
 
+                                        <div class="col-12">
+                                            <label class="form-label mb-1">Production Date</label>
+                                            <input type="date"
+                                                   name="production_time"
+                                                   class="form-control"
+                                                   value="{{ request('production_time') }}">
+                                        </div>
+
                                         <div class="col-12 d-flex gap-2 mt-2">
                                             <button type="submit" class="btn btn-success w-100">
                                                 <i class="bi bi-file-earmark-excel"></i> Export

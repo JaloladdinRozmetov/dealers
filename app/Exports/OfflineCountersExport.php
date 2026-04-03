@@ -12,6 +12,7 @@ class OfflineCountersExport implements FromCollection
         private ?int $from,
         private ?int $to,
         private ?string $name,
+        private ?string $production_time,
         private ?string $caliber
     ) {}
 
@@ -21,25 +22,26 @@ class OfflineCountersExport implements FromCollection
     */
     public function collection()
     {
-        return OfflineCounter::query()
-            ->when($this->from, fn ($q) =>
-            $q->where('serial_number', '>=', $this->from)
-            )
-            ->when($this->to, fn ($q) =>
-            $q->where('serial_number', '<=', $this->to)
-            )
-            ->when($this->name, fn ($q) =>
-            $q->where('name', $this->name)
-            )
-            ->when($this->caliber, fn ($q) =>
-            $q->where('caliber', $this->caliber)
-            )
-            ->select('serial_number', 'hash')
-            ->get()
-            ->map(fn ($counter) => [
-                'serial_number' => $counter->serial_number,
-                'link' => "https://dc.idealmeter.uz/counters/{$counter->hash}",
-            ]);
+        $serials = range($this->from, $this->to);
+
+        $counters = collect($serials)->map(function ($serial) {
+            return OfflineCounter::firstOrCreate(
+                ['serial_number' => $serial],
+                [
+                    'name' => $this->name,
+                    'caliber' => $this->caliber,
+                    'phone_number' => '+998772820001',
+                    'supplier' => '"IDEALMETER" MCHJ',
+                    'producer_country' => 'Xitoy',
+                    'production_time' => $this->production_time
+                ]
+            );
+        });
+
+        return $counters->map(fn ($counter) => [
+            'serial_number' => $counter->serial_number,
+            'link' => "https://dc.idealmeter.uz/counters/{$counter->hash}",
+        ]);
     }
 
     public function headings(): array
